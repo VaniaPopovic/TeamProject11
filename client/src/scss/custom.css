@@ -1,13 +1,13 @@
 
 .square.is-revealed {
-  background: #31A8E4;
+  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
   border: 1px solid transparent;
   color: #FFFFFF;
   -webkit-transition: background-color 0.5s, color 0.25s;
 }
 
 .square.is-selected {
-  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+  background: linear-gradient(45deg, #FE6B8B 30%, #BF8E53 90%);
   border: 1px solid transparent;
   -webkit-transition: background-color 0.25s;
 }

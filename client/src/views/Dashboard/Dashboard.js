@@ -1,24 +1,10 @@
 import React, { Component, lazy, Suspense } from 'react';
-import { Bar, Line } from 'react-chartjs-2';
 import {
-  Badge,
-  Button,
-  ButtonDropdown,
-  ButtonGroup,
-  ButtonToolbar,
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
-  CardTitle,
   Col,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Progress,
   Row,
-  Table,
+
 } from 'reactstrap';
 import Game from 'components/Game';
 import puzzleData from 'DATA.json';
