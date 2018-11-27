@@ -2,6 +2,9 @@
   "puzzles": [
     {"grid": [["cattless"], ["dogdefgh"], ["obcdcath"], ["gogsefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
 	"answers": ["cat", "dog"]
+	},
+	 {"grid": [["capuzzle"], ["dcgdefgh"], ["ohcdcath"], ["gegsefgh"], ["afcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
+	"answers": ["puzzle", "chef"]
 	}
   ]
 }
