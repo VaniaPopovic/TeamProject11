@@ -29,13 +29,7 @@ class Dashboard extends Component {
           <Col xs="12" sm="12" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-			  <div>
-				<h3>Find the words</h3>
-				<h2></h2>
-				<ul className='found-words'>
-				<li>Cat</li>
-				</ul>
-				</div>
+			  
                  <Game data={this.state.puzzles}></Game>
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: '70px' }}>
