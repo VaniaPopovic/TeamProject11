@@ -1,5 +1,7 @@
 {
   "puzzles": [
-    {"grid": [["charless"], ["abcdefgh"], ["abcdcath"], ["dogsefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], "answers": ["cat"]}
+    {"grid": [["cattless"], ["dogdefgh"], ["obcdcath"], ["gogsefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
+	"answers": ["cat", "dog"]
+	}
   ]
 }

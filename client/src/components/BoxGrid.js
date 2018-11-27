@@ -67,10 +67,8 @@ class BoxGrid extends React.Component {
     let selected = [];
 
     if(start && end) {
-     
       let difCol = end.col - start.col;
       let difRow = end.row - start.row;
-     
       let incCol = Math.sign(difCol);
       let incRow = Math.sign(difRow);
     
@@ -94,7 +92,7 @@ class BoxGrid extends React.Component {
       }
     }
 
-
+    console.log(selected)
     return selected;
   }
 
