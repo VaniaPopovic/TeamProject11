@@ -1,8 +1,53 @@
-import React, { Component } from 'react';
-import { Button, Card, CardBody, CardFooter, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import React, { Component } from "react";
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Col,
+  Container,
+  Form,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Row
+} from "reactstrap";
 
 class Register extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+  handleChange = prop => event => {
+    console.log("this called");
+    this.setState({ [prop]: event.target.value });
+  };
+  onChange = (e) => {
+    const state = this.state
+    state[e.target.name] = e.target.value;
+    this.setState(state);
+  }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    const { username, password } = this.state;
+
+    axios.post('/api/auth/register', { username, password })
+      .then((result) => {
+        this.props.history.push("/login")
+      });
+  }
+
   render() {
+    const { username, password } = this.state;
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -10,52 +55,50 @@ class Register extends Component {
             <Col md="9" lg="7" xl="6">
               <Card className="mx-4">
                 <CardBody className="p-4">
-                  <Form>
+                  <Form onSubmit={this.onSubmit}>
                     <h1>Register</h1>
                     <p className="text-muted">Create your account</p>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className="icon-user"></i>
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input type="text" placeholder="Username" autoComplete="username" />
-                    </InputGroup>
-                    <InputGroup className="mb-3">
-                      <InputGroupAddon addonType="prepend">
                         <InputGroupText>@</InputGroupText>
                       </InputGroupAddon>
-                      <Input type="text" placeholder="Email" autoComplete="email" />
+                      <Input
+                        type="text"
+                        placeholder="Email"
+                        autoComplete="email"
+                        value={username}
+                        onChange={this.handleChange("username")} 
+                        required
+                      />
                     </InputGroup>
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-lock"></i>
+                          <i className="icon-lock" />
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Password" autoComplete="new-password" />
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="new-password"
+                        value={password} 
+                        onChange={this.handleChange("password")} 
+                        required
+                      />
                     </InputGroup>
-                    <InputGroup className="mb-4">
+                    {/*<InputGroup className="mb-4">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
                           <i className="icon-lock"></i>
                         </InputGroupText>
                       </InputGroupAddon>
-                      <Input type="password" placeholder="Repeat password" autoComplete="new-password" />
-                    </InputGroup>
-                    <Button color="success" block>Create Account</Button>
+                      <Input type="password" placeholder="Repeat password" autoComplete="new-password" /></InputGroup> 
+                      */}
+                    <Button color="success" block type="submit">
+                      Create Account
+                    </Button>
                   </Form>
                 </CardBody>
-                <CardFooter className="p-4">
-                  <Row>
-                    <Col xs="12" sm="6">
-                      <Button className="btn-facebook mb-1" block><span>facebook</span></Button>
-                    </Col>
-                    <Col xs="12" sm="6">
-                      <Button className="btn-twitter mb-1" block><span>twitter</span></Button>
-                    </Col>
-                  </Row>
-                </CardFooter>
               </Card>
             </Col>
           </Row>

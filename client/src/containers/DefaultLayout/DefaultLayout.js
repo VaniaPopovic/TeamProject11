@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import axios from 'axios';
 
 import {
   AppAside,
@@ -30,6 +31,25 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault()
     this.props.history.push('/login')
+    
+  }
+  componentDidMount() {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.get('/api/book')
+      .then(res => {
+        this.setState({ books: res.data });
+        console.log(this.state.books);
+      })
+      .catch((error) => {
+        if(error.response.status === 401) {
+          this.props.history.push("/login");
+        }
+      });
+  }
+
+  logout = () => {
+    localStorage.removeItem('jwtToken');
+    window.location.reload();
   }
 
   render() {
