@@ -33,7 +33,7 @@ class Game extends Component {
   setNextPuzzle() {
     const index = (this.state.puzzleIndex + 1) % this.state.data.length;
     const data = this.state.data[index];
-    console.log(data);
+    //console.log(data);
     this.setState({
       puzzleIndex: index,
       time: new Date().getTime(),
@@ -86,7 +86,7 @@ class Game extends Component {
           });
         }
       }
-      console.log("state here", this.state);
+     // console.log("state here", this.state);
     }
 
     return squares;
@@ -129,16 +129,16 @@ class Game extends Component {
         // })
       }
     }
-    console.log("Target", revealedTarget);
+   // console.log("Target", revealedTarget);
   }
   onSave(totalTime){
-    console.log("TIME TAKEN ", totalTime)
+   // console.log("TIME TAKEN ", totalTime)
   }
   render() {
     var answers = this.state.answers;
     var time = Date;
-    console.log("render", answers);
-    console.log("TIME",this.state.time);
+    //console.log("render", answers);
+    //console.log("TIME",this.state.time);
     return (
       <div className="game-container">
       <h1>LEVEL {this.state.puzzleIndex +1}</h1>

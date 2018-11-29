@@ -3,8 +3,8 @@
     {"grid": [["cattless"], ["dogdefgh"], ["obcdcath"], ["gogsefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
 	"answers": ["cat", "dog"]
 	},
-	 {"grid": [["capuzzle"], ["dcgdefgh"], ["ohcdcath"], ["gegsefgh"], ["afcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
-	"answers": ["puzzle", "chef"]
-	}
+	{"grid":[["0000g000"],["000o00h0"],["00d000a0"],["000 0as0"],["00t0jys0"],["0a0nx0a0"],["c0ae00n0"],["0vs00000"]],"difficulty":"EASY","answers":["hassan","vanja","dog","cat ","sexy"]},
+	{"grid":[["000s00vh"],["000e00aa"],["0d0x00ns"],["0o0y00js"],["cg0000aa"],["a000000n"],["t0000000"],[" 0000000"]],"difficulty":"EASY","answers":["hassan","vanja","dog","cat ","sexy"]},
+	{"grid":[["s0000v00"],["e0000a00"],["x0000n00"],["y0000j00"],["0000cat "],["00000000"],["0hassan0"],["0000dog0"]],"difficulty":"EASY","answers":["hassan","vanja","dog","cat ","sexy"]}
   ]
 }

@@ -93,11 +93,12 @@ class BoxGrid extends React.Component {
 
     var grid = this.props.squares.map((row, ri) => {
       return (
-        <div key={++id} className="board-row">
+        <tr key={++id} className="board-row">
           {row.map((col, ci) => {
             const pos = { row: ri, col: ci };
 
             return (
+              <td>
               <Box
                 key={++id}
                 value={col.value}
@@ -106,13 +107,14 @@ class BoxGrid extends React.Component {
                 selected={isSelected(pos)}
                 events={mouseEvents}
               />
+              </td>
             );
           })}
-        </div>
+        </tr>
       );
     });
 
-    return <div className="board">{grid}</div>;
+    return <div><table id="matrix">{grid}</table></div>;
   }
 }
 
