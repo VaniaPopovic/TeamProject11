@@ -1,4 +1,22 @@
 
+
+#matrix {
+  border: 1px solid red;
+  margin: 0 auto;
+  padding: 1px;
+}
+
+#matrix tr, td {
+  padding: 1px;
+}
+
+#matrix button {
+  height: 30px;
+  width: 30px;
+  border: none;
+  font-family: helvetica;
+  font-weight: bold;
+}
 .square.is-revealed {
   background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
   border: 1px solid transparent;
