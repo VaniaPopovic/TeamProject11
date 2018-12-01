@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 10px;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    list-style-position: inside;
+}
+
+.crossword {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.boxes {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(50px * 8);
+}
+
+.clue {
+    padding: 5px 0;
+}
+
+.box {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgb(4, 4, 41);
+    text-align: center;
+}
+
+.box-wrapper {
+    position: relative;
+}
+
+.box-label {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    color: black;
+}
+
+.blank {
+    background: rgb(13, 41, 133);
+}
+
+.solved {
+    background: rgba(46, 139, 87, 0.8);
+}
+
+@media all and (max-width: 2030px) {
+    .crossword {
+        flex-direction: column;
+    }
+
+    .clue-lists {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+    }
+}
