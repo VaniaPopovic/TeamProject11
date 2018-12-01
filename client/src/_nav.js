@@ -24,5 +24,11 @@ export default {
       icon: 'icon-ban',
       attributes: { },
     },
+    {
+      name: 'Crosswords',
+      url: '/crosswords',
+      icon: 'icon-ban',
+      attributes: { },
+    },
   ],
 };
