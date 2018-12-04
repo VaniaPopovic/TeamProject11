@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 
 var book = require('./routes/puzzle');
 var auth = require('./routes/auth');
+var crosswords = require('./routes/crosswordsRoute');
 var app = express();
 
 app.use(logger('dev'));
@@ -15,6 +16,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api/puzzle', book);
 app.use('/api/auth', auth);
+app.use('/api/crosswords', crosswords);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -31,7 +33,11 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  //res.render('error');
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 var mongoose = require('mongoose');

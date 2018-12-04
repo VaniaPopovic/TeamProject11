@@ -1,24 +1,19 @@
 import React from "react";
 import Box from "./Box";
+//boxes不做任何处理，在box中做判断处理；
+//constructor只能接收初始化的数据，如果想要之前改变后的数据，需要在render或者componentDidUpdate中接收
 class Boxes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      answers: {
-        across: props.clues.across.map(clue => {
-          return this.initClueData(clue);
-        }),
-        down: props.clues.down.map(clue => {
-          return this.initClueData(clue);
-        })
-      },
-      answer: "react",
-      correctLetters: 0
-    };
+      count: 0
 
-    this.handleCorrectGuess = this.handleCorrectGuess.bind(this);
-    this.handleIncorrectGuess = this.handleIncorrectGuess.bind(this);
+    };
+    this.handleCount = this.handleCount.bind(this);
+    //this.handleCorrectGuess = this.handleCorrectGuess.bind(this);
+    //this.handleIncorrectGuess = this.handleIncorrectGuess.bind(this);
   }
+
   //初始化数据
   initClueData(data) {
     return {
@@ -27,11 +22,13 @@ class Boxes extends React.Component {
       solved: false
     };
   }
+
   //猜词正确
   handleCorrectGuess(cluesToUpdate) {
+    console.log(this.state);
     for (const clue of cluesToUpdate) {
       //设置每个Letter正确则进入debugger模式
-      //debugger;
+      debugger;
       const clueIndex = clue.number - 1;
       let currentState = this.state.answers;
       let currentClueObject = currentState[clue.direction][clueIndex];
@@ -51,6 +48,7 @@ class Boxes extends React.Component {
       });
     }
   }
+
   handleIncorrectGuess() {
     if (this.state.correctLetters > 0) {
       this.setState({
@@ -58,8 +56,33 @@ class Boxes extends React.Component {
       });
     }
   }
-  //如果要向组件传递参数可以使用this.props
+
+//处理输入正确的结果并计数，当达到数目则通关
+  handleCount() {
+    this.state.count++;
+    console.log("input correct number" + this.state.count);
+    console.log("total:" + this.state.totalCorrect);
+    if (this.state.count === this.state.totalCorrect) {
+      alert("pass!");
+    }
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // 得到了数据，操的，要用IF条件，这里是表示如果数据更新则执行setstate
+    if (prevProps !== this.props) {
+      //console.log("Boxes------",this.props);
+      this.setState({
+        totalCorrect: this.props.totalCorrect
+      });
+
+    }
+  }
+
+
+  //如果要向组件传递参数使用this.props
   render() {
+    //console.log("render",this.state.correctTotal);
     return (
       <div className="boxes">
         {this.props.grid.map(box => (
@@ -71,13 +94,11 @@ class Boxes extends React.Component {
             down={box.down}
             number={box.number}
             clueDown={box.clue_down}
-            answers={this.state.answers}
-            onCorrect={this.handleCorrectGuess}
-            onIncorrect={this.handleIncorrectGuess}
+            handleCount={this.handleCount}
           />
         ))}
-        <h2>Level 1</h2>
-        <button>next level</button>
+
+
       </div>
     );
   }

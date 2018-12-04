@@ -10,8 +10,8 @@ class Clues extends React.Component {
   render() {
     return (
       <ol className="clues">
-        {this.props.clues.map(clueObject => (
-          <Clue clueItem={clueObject} />
+        {this.props.clues.map((clueObject,i) => (
+          <Clue key={i} clueItem={clueObject} />
         ))}
       </ol>
     );
