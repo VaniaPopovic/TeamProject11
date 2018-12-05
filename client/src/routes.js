@@ -8,6 +8,7 @@ const Navs = React.lazy(() => import('./views/Base/Navs'));
 
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const CrosswordsPage = React.lazy(() => import('./views/CrosswordsPage'));
+const ScrabblePage = React.lazy(() => import('./views/WordUnscramble'));
 
 
 const Users = React.lazy(() => import('./views/Users/Users'));
@@ -18,6 +19,7 @@ const routes = [
   { path: '/home', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/crosswords', name: 'CrosswordsPage', component: CrosswordsPage },
+  { path: '/scrabble', name: 'ScrabblePage', component: ScrabblePage },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
 ];

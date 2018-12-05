@@ -124,7 +124,7 @@ class PuzzleGenerator extends React.Component {
    */
   writeWords(grid) {
     //console.log("word",this.difficulty);
-    var words = ["hassan", "vanja", "dog", "cat ", "sexy"];
+    var words = ["charles", "vanja", "iphone", "dog ", "charge"];
 
     for (let word of words) {
       grid = this.placeWord(word, grid);
@@ -292,7 +292,7 @@ class PuzzleGenerator extends React.Component {
     var obj = {};
     obj.grid = gridJson;
     obj.difficulty = this.difficulty;
-    obj.answers = ["hassan", "vanja", "dog", "cat ", "sexy"];
+    obj.answers = ["charles", "vanja", "iphone", "dog ", "charge"];
     var jsonString = JSON.stringify(obj);
     console.log("GRID", jsonString);
     return <div>HELLO</div>;

@@ -30,5 +30,11 @@ export default {
       icon: 'icon-ban',
       attributes: { },
     },
+      {
+      name: 'Scrabble',
+      url: '/scrabble',
+      icon: 'icon-ban',
+      attributes: { },
+    },
   ],
 };

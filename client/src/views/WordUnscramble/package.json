@@ -1,0 +1,6 @@
+{
+  "name": "WordUnscramble",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./WordUnscramble.js"
+}
