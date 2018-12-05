@@ -5,15 +5,22 @@ $squares-per-col: 7;
 $gutter-width:    8px;
 $board-width:     $square-size * $squares-per-row;
 $board-height:    $square-size * $squares-per-col;
-$color1: #eee;
-$color2: #222;
-$color3: #ffd959;
-$color4: #725c40;
+$white:     #FFFFFF;
+$lightgray: #CFDEDB;
+$darkgray:  #333636;
+$aqua:      #1B90A1;
+$fuscia:    #F34D93;
+$mauve:     #8C658F;
+
+// Used in Scrabble demo
+$yellow:      #FFD959;
+$fadedyellow: #BDA259;
+
 #scrabble {
 
   .board-border {
     position: relative;
-    background: #000000;
+    background: $lightgray;
     margin: 2rem auto;
     width:  $board-width + ($gutter-width * 2);
     height: $board-height + ($gutter-width * 2);
@@ -33,7 +40,7 @@ $color4: #725c40;
     position: relative;
     width: $square-size;
     height: $square-size;
-    background: $white;
+    background: $aqua;
     border-top: 1px solid #AAA;
     border-left: 1px solid #AAA;
 
@@ -50,45 +57,45 @@ $color4: #725c40;
       border-bottom: 1px solid #AAA;
     }
   }
-  board-square:nth-child(n + 33):nth-child(-n + 40) {
-    box-sizing: border-box;
-    border-bottom: 5px solid $color3;
-    border-top: 5px solid $color3;
-    background-color: $color2;
-  }
   
-  .board-square:nth-child(33) {
-    box-sizing: border-box;
-    border-left: 5px solid $color3;
-  }
-  
-  .board-square:nth-child(40) {
-    box-sizing: border-box;
-    border-right: 5px solid $color3;
-  }
-  
+.board-square:nth-child(n + 36):nth-child(-n + 44) {
+  box-sizing: border-box;
+  border-bottom: 5px solid $white;
+  border-top: 5px solid $white;
+  background-color: $fuscia;
+}
+
+.board-square:nth-child(36) {
+  box-sizing: border-box;
+  border-left: 5px solid $white;
+}
+
+.board-square:nth-child(44) {
+  box-sizing: border-box;
+  border-right: 5px solid $white;
+}
   .tile {
     position: absolute;
     z-index: 2;
     width: $tile-size;
     height: $tile-size;
-    background: $color3;
+    background: $yellow;
     cursor: move;
     -webkit-box-shadow:
-      0.5px 0.5px 0px #FFFF00,
-      1px 1px 0px #FFFF00,
-      1.5px 1.5px 0px #FFFF00,
-      2px 2px 0px #FFFF00,
-      2.5px 2.5px 0px #FFFF00,
-      3px 3px 0px #FFFF00,
+      0.5px 0.5px 0px $fadedyellow,
+      1px 1px 0px $fadedyellow,
+      1.5px 1.5px 0px $fadedyellow,
+      2px 2px 0px $fadedyellow,
+      2.5px 2.5px 0px $fadedyellow,
+      3px 3px 0px $fadedyellow,
     ;
     box-shadow:
-      0.5px 0.5px 0px #FFFF00,
-      1px 1px 0px #FFFF00,
-      1.5px 1.5px 0px #FFFF00,
-      2px 2px 0px #FFFF00,
-      2.5px 2.5px 0px #FFFF00,
-      3px 3px 0px #FFFF00,
+      0.5px 0.5px 0px $fadedyellow,
+      1px 1px 0px $fadedyellow,
+      1.5px 1.5px 0px $fadedyellow,
+      2px 2px 0px $fadedyellow,
+      2.5px 2.5px 0px $fadedyellow,
+      3px 3px 0px $fadedyellow,
     ;
 
     &.draggable { cursor: move; }
@@ -96,7 +103,7 @@ $color4: #725c40;
     &.is-dragging { opacity: 0.7; }
 
     &.is-established {
-      background: lighten(#FFFF00, 15%);
+      background: lighten($yellow, 15%);
     }
 
     .tile-letter {
@@ -109,7 +116,7 @@ $color4: #725c40;
       line-height: $tile-size;
       text-align: center;
       font-weight: 700;
-      color: #ffffff;
+      color: $darkgray;
     }
 
     .tile-points {
@@ -121,7 +128,7 @@ $color4: #725c40;
       line-height: $tile-size * 0.4;
       text-align: center;
       font-size: $tile-size * 0.25;
-      color: #FFFF00;
+      color: $fadedyellow;
     }
   }
 

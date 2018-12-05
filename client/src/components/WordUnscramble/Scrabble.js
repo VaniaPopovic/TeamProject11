@@ -12,9 +12,9 @@ import {
 }                                       from 'react-dnd';
 
 import FlipMove from 'react-flip-move';
-import Toggle from './Toggle.js';
 import tiles from './tiles.js';
 import PropTypes from 'prop-types';
+import { Fade, Alert } from 'reactstrap';
 
 
 const BOARD_WIDTH   = 11;
@@ -27,7 +27,13 @@ const TILE_OFFSET   = 3;
 class Scrabble extends Component {
   constructor(props) {
     super(props);
-    this.state = { tiles }
+    var answ = ["cat","tap","cap","at","act"];
+    this.state = 
+    { tiles,
+      score: 0,
+      answers: answ,
+      fadeIn: false
+     }
 
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
     this.resetTiles = this.resetTiles.bind(this);
@@ -46,6 +52,7 @@ class Scrabble extends Component {
     stateTiles[index] = { ...tile, x, y };
 
     this.setState({ tiles: stateTiles });
+    this.checkForWords();
   }
 
   resetTiles() {
@@ -81,27 +88,85 @@ class Scrabble extends Component {
       })
     ));
   }
+    checkForWords = () => {
+    let capturedTiles = [];
+    let tiles = this.state.tiles;
+    for (let i = 0; i < tiles.length; i++) {
+      if (tiles[i].y === 3) {
+        capturedTiles.push(tiles[i]);
+      }
+    }
+    let result = "";
 
+    // sort by x position in matrix
+    capturedTiles.sort((a, b) => {
+      return a.x > b.x ? 1 : b.x > a.x ? -1 : 0;
+    });
+
+    let containsALetter = function(element, index) {
+      return element.x === index + 1;
+    };
+
+    for (let j = 0; j < 8; j++) {
+      if (!capturedTiles.some(el => containsALetter(el, j))) {
+        capturedTiles.splice(j, 0, " ");
+      }
+    }
+
+    for (let j = 0; j < capturedTiles.length; j++) {
+      if (capturedTiles[j].letter) {
+        result += capturedTiles[j].letter.toLowerCase();
+      } else {
+        result += " ";
+      }
+    }
+
+    this.validateWord(result.trim());
+  };
+  validateWord = word => {
+    let result = false;
+    
+    for(var i=0; i< this.state.answers.length; i++){
+      if (word == this.state.answers[i]) {
+        result = true;
+        console.log("FOUND IT");
+        var sc = this.state.score +10;
+        this.setState({score: sc,
+                       fadeIn: !this.state.fadeIn
+                      });
+  
+                        setTimeout(() => {
+                            this.setState({
+                              fadeIn: !this.state.fadeIn
+                          })
+                        }, 2000);
+      }
+    }
+   
+    
+  };
   render() {
     return (
+      <div>
+        <h1>LEVEL 1</h1>
+          <h4> {this.state.answers.length} WORD COMBINATIONS</h4>
+          <h4>Score: {this.state.score}</h4>
+          <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
+          <Alert color="success">
+              CONGRATULATION RETARD, YOU ARE A BIT LESS DYSLEXIC
+              </Alert>
+                </Fade>
       <div id="scrabble">
         <div className="board-border">
           <div className="board">
+          
             <FlipMove duration={1500} staggerDelayBy={150}>
               { this.renderTiles() }
             </FlipMove>
             { this.renderBoardSquares() }
           </div>
         </div>
-
-        <div className="controls">
-          <Toggle
-            clickHandler={this.resetTiles}
-            text="Reset" icon="refresh"
-            active={true}
-            large={true}
-          />
-        </div>
+      </div>
       </div>
     );
   }
