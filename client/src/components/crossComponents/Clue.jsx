@@ -15,7 +15,7 @@ class Clue extends React.Component {
   render() {
     return (
       <li className="cluel">
-        {this.props.clueItem.clue}
+        {this.props.clueItem.number+ ". "+ this.props.clueItem.clue}
         <button onClick={this.showAnswer}> answer</button>
       </li>
     );

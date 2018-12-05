@@ -59,7 +59,7 @@ class Crosswords extends Component {
   changeMap() {
     axios.get("/api/crosswords/get", {
       params: {
-        level: 2
+        level: this.state.level + 1
       }
     })
       .then(response => {
@@ -76,6 +76,7 @@ class Crosswords extends Component {
         console.log(error);
       });
   }
+
 
   //以下为JSX语法，在JSX中用{}来包含JS语句
   render() {
@@ -103,7 +104,7 @@ class Crosswords extends Component {
             <Clues clues={this.state.clues.down}/>
           </div>
         </div>
-        <Boxes grid={this.state.grid} totalCorrect={this.state.totalCorrect} changeMap={this.changeMap}/>
+        <Boxes level={this.state.level} grid={this.state.grid} totalCorrect={this.state.totalCorrect} changeMap={this.changeMap}/>
       </div>
     );
   }

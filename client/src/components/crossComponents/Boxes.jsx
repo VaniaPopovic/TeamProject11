@@ -89,9 +89,19 @@ class Boxes extends React.Component {
   //如果要向组件传递参数使用this.props
   render() {
     //console.log("render",this.props.key);
-
+    let className = 'boxes';
+    if(this.props.level === 8){
+      className = 'boxes8'
+    }
+    if(this.props.level === 9){
+      className = 'boxes8'
+    }
+    if(this.props.level === 10){
+      className = 'boxes10'
+    }
+    //className指定在CSS中的引用名称
     return (
-      <div className="boxes" >
+      <div className={className} >
         {this.props.grid.map(box => (
           <Box
             key={box.id}
