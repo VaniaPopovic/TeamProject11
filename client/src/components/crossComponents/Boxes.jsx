@@ -57,34 +57,41 @@ class Boxes extends React.Component {
     }
   }
 
-//处理输入正确的结果并计数，当达到数目则通关
+//处理输入正确的结果并计数，当达到数目则通关,totalCorrect作为标志看是否答对所有
   handleCount() {
     this.state.count++;
     console.log("input correct number" + this.state.count);
-    console.log("total:" + this.state.totalCorrect);
-    if (this.state.count === this.state.totalCorrect) {
+    console.log("total:" + this.props.totalCorrect);
+    if (this.state.count === this.props.totalCorrect) {
       alert("pass!");
+      this.props.changeMap();
     }
 
-  }
 
+  }
+/*
   componentDidUpdate(prevProps, prevState) {
     // 得到了数据，操的，要用IF条件，这里是表示如果数据更新则执行setstate
+    console.log("sadfsdf"+this.props.totalCorrect);
     if (prevProps !== this.props) {
-      //console.log("Boxes------",this.props);
+      console.log("Boxes------",this.props);
       this.setState({
-        totalCorrect: this.props.totalCorrect
+        totalCorrect: this.props.totalCorrect,
+
       });
 
     }
   }
+*/
+
 
 
   //如果要向组件传递参数使用this.props
   render() {
-    //console.log("render",this.state.correctTotal);
+    //console.log("render",this.props.key);
+
     return (
-      <div className="boxes">
+      <div className="boxes" >
         {this.props.grid.map(box => (
           <Box
             key={box.id}
@@ -95,7 +102,9 @@ class Boxes extends React.Component {
             number={box.number}
             clueDown={box.clue_down}
             handleCount={this.handleCount}
+
           />
+
         ))}
 
 

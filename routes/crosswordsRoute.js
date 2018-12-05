@@ -21,28 +21,29 @@ router.get("/get", function(req, res) {
 router.post("/post", function(req, res, next) {
 
   const mapData = new Crosswords({
-    level: 1,
-    totalCorrect: 7,
+    level: 2,
+    totalCorrect: 8,
     clues: {
 
       across: [
         {
           number: 1,
-          clue: "Animals people usually keep at home.",
-          answer: "pet"
+          clue: "When you go to sleep you will lie in __",
+          answer: "bed"
+        },
+        {
+          number: 2,
+          clue: "A soft cover that keeps you warm or comfortable.",
+          answer: "rug"
         }
       ],
       down: [
         {
           number: 1,
-          clue: "Peppa is a ___?",
-          answer: "pig"
-        },
-        {
-          number: 2,
-          clue: "Miao Miao Miao!",
-          answer: "cat"
+          clue: "Please lock the __ when you go outside.",
+          answer: "door"
         }
+
       ]
     },
     grid: [
@@ -96,12 +97,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "B5",
-        letter: "c",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 2,
-        number: 2
+        letter: null
       },
       {
         id: "B6",
@@ -125,19 +121,29 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "C3",
-        letter: null
+        letter: "b",
+        across: true,
+        clue_across: 1,
+        down: false,
+        clue_down: null,
+        number: 1
       },
       {
         id: "C4",
-        letter: null
+        letter: "e",
+        across: true,
+        clue_across: 1,
+        down: false,
+        clue_down: null
       },
       {
         id: "C5",
-        letter: "a",
-        across: false,
-        clue_across: null,
+        letter: "d",
+        across: true,
+        clue_across: 1,
         down: true,
-        clue_down: 2
+        clue_down: 1,
+        number: 1
       },
       {
         id: "C6",
@@ -161,28 +167,19 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "D3",
-        letter: "p",
-        across: true,
-        clue_across: 1,
-        down: false,
-        clue_down: null,
-        number: 1
+        letter: null
       },
       {
         id: "D4",
-        letter: "e",
-        across: true,
-        clue_across: 1,
-        down: false,
-        clue_down: null
+        letter: null
       },
       {
         id: "D5",
-        letter: "t",
-        across: true,
-        clue_across: 1,
+        letter: "o",
+        across: false,
+        clue_across: null,
         down: true,
-        clue_down: 2
+        clue_down: 1
       },
       {
         id: "D6",
@@ -206,11 +203,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "E3",
-        letter: "i",
-        across: true,
-        clue_across: 1,
-        down: false,
-        clue_down: null
+        letter: null
       },
       {
         id: "E4",
@@ -218,7 +211,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "E5",
-        letter: null
+        letter: "o",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 1
       },
       {
         id: "E6",
@@ -242,11 +239,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "F3",
-        letter: "g",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 1
+        letter: null
       },
       {
         id: "F4",
@@ -254,15 +247,28 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "F5",
-        letter: null
+        letter: "r",
+        across: true,
+        clue_across: 2,
+        down: true,
+        clue_down: 1,
+        number: 2
       },
       {
         id: "F6",
-        letter: null
+        letter: "u",
+        across: true,
+        clue_across: 2,
+        down: false,
+        clue_down: null
       },
       {
         id: "F7",
-        letter: null
+        letter: "g",
+        across: true,
+        clue_across: 2,
+        down: false,
+        clue_down: null
       },
       {
         id: "F8",

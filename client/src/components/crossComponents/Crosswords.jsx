@@ -17,6 +17,7 @@ class Crosswords extends Component {
       grid: []
     };
     this.postMap = this.postMap.bind(this);
+    this.changeMap = this.changeMap.bind(this);
   }
 
 //从数据库得到数据并放入state中
@@ -44,6 +45,7 @@ class Crosswords extends Component {
 
   }
 
+//向数据库里存地图
   postMap() {
     axios.post("/api/crosswords/post")
       .then(res => {
@@ -53,12 +55,38 @@ class Crosswords extends Component {
 
   }
 
+  //更新地图
+  changeMap() {
+    axios.get("/api/crosswords/get", {
+      params: {
+        level: 2
+      }
+    })
+      .then(response => {
+        //在浏览器console打印
+        this.setState({
+          totalCorrect: response.data.totalCorrect,
+          level: response.data.level,
+          clues: response.data.clues,
+          grid: response.data.grid
+
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   //以下为JSX语法，在JSX中用{}来包含JS语句
   render() {
+    //console.log(this.state);
+
     return (
-      <div className="crossword">
+      //设置key来作为唯一id，如果key 不同则所有子控件都会不同
+      <div className="crossword" key={this.state.level}>
         <h1>LEVEL {this.state.level}
           <button onClick={this.postMap}>post map</button>
+          <button onClick={this.changeMap}>change map</button>
         </h1>
 
         <div className="clue-lists">
@@ -75,7 +103,7 @@ class Crosswords extends Component {
             <Clues clues={this.state.clues.down}/>
           </div>
         </div>
-        <Boxes grid={this.state.grid} totalCorrect={this.state.totalCorrect}/>
+        <Boxes grid={this.state.grid} totalCorrect={this.state.totalCorrect} changeMap={this.changeMap}/>
       </div>
     );
   }

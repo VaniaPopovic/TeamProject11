@@ -55,6 +55,8 @@ class Box extends React.Component {
     }
   }
 
+
+
   render() {
     if (!this.props.letter) {
       return <div className="box blank"/>;
