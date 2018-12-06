@@ -11,35 +11,42 @@ ol {
     padding: 0;
     list-style-position: inside;
 }
-li  {
+
+li {
     list-style-type: none;
 }
 
 .crossword {
     display: flex;
     justify-content: space-around;
-    width: 80%;
     margin: 0 auto;
 }
 
 .boxes {
+    align-self: center;
     display: flex;
     flex-wrap: wrap;
     width: calc(50px * 8);
+
 }
 
-.boxes8{
+.boxes8 {
+    align-self: center;
     display: flex;
     flex-wrap: wrap;
     width: calc(50px * 9);
 }
-.boxes10{
+
+.boxes10 {
+    align-self: center;
     display: flex;
     flex-wrap: wrap;
     width: calc(50px * 10);
 }
+
 .clue {
-    padding: 5px 0;
+    padding: 4px 0;
+    font-size: large;
 }
 
 .box {
@@ -71,11 +78,12 @@ li  {
 @media all and (max-width: 2030px) {
     .crossword {
         flex-direction: column;
+
     }
 
     .clue-lists {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         margin-bottom: 40px;
     }
 

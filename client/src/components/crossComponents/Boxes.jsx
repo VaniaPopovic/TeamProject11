@@ -63,8 +63,8 @@ class Boxes extends React.Component {
     console.log("input correct number" + this.state.count);
     console.log("total:" + this.props.totalCorrect);
     if (this.state.count === this.props.totalCorrect) {
-      alert("pass!");
-      this.props.changeMap();
+
+      this.props.finishAndNextLevel();
     }
 
 

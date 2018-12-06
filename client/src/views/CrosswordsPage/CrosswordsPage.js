@@ -2,6 +2,7 @@ import React, { Component, lazy, Suspense } from "react";
 import { Card, CardBody, Col, Row } from "reactstrap";
 import Crosswords from '../../components/crossComponents/Crosswords';
 import './crosswords.css'
+
 class CrosswordsPage extends Component {
   constructor(props) {
     super(props);

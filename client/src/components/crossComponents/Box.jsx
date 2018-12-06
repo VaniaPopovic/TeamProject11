@@ -16,8 +16,8 @@ class Box extends React.Component {
 
   //检测方框填入字的改变
   handleChange(event) {
-    //当输入字母正确
-    if (event.target.value === this.props.letter && !this.state.isCorrect) {
+    //当输入字母正确,把字母都转成小写
+    if (event.target.value.toLowerCase() === this.props.letter && !this.state.isCorrect) {
       //设置state
       this.setState({ value: event.target.value, isCorrect: true });
 
@@ -70,7 +70,7 @@ class Box extends React.Component {
           <input
             type="text"
             style={{
-              borderColor: this.state.isCorrect ? "red" : "black"
+              backgroundColor: this.state.isCorrect ? "lightGreen" : "white"
             }}
             onChange={this.handleChange}
             maxLength="1"
@@ -84,7 +84,7 @@ class Box extends React.Component {
       <input
         type="text"
         style={{
-          borderColor: this.state.isCorrect ? "red" : "black"
+          backgroundColor: this.state.isCorrect ? "lightGreen" : "white"
         }}
         onChange={this.handleChange}
         maxLength="1"
