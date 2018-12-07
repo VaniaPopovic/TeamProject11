@@ -1,376 +1,170 @@
 import React, { Component } from "react";
 import Boxes from "./Boxes";
 import Clues from "./Clues";
+import axios from "axios";
+import { Button ,Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+
 
 //棋盘组件，并添加线索的名称
 class Crosswords extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      warning: false,
+      warningFinish: false,
+      time: new Date().getTime(),
+      elapsedTime: 0,
+      level: 0,
+      totalCorrect: 0,
       clues: {
-        across: [
-          {
-            number: 1,
-            clue: "A responsive JavaScript library?",
-            answer: "react"
-          }
-        ],
-        down: [
-          {
-            number: 1,
-            clue: "A method of making an element in the DOM?",
-            answer: "render"
-          },
-          {
-            number: 2,
-            clue: "The most handsome boy?",
-            answer: "charles"
-          }
-        ]
+        across: [],
+        down: []
       },
-      grid: [
-        {
-          id: "A1",
-          letter: null
-        },
-        {
-          id: "A2",
-          letter: null
-        },
-        {
-          id: "A3",
-          letter: "r",
-          across: true,
-          clue_across: 1,
-          down: true,
-          clue_down: 1,
-          number: 1
-        },
-        {
-          id: "A4",
-          letter: "e",
-          across: true,
-          clue_across: 1,
-          down: false,
-          clue_down: null
-        },
-        {
-          id: "A5",
-          letter: "a",
-          across: true,
-          clue_across: 1,
-          down: false,
-          clue_down: null
-        },
-        {
-          id: "A6",
-          letter: "c",
-          across: true,
-          clue_across: 1,
-          down: true,
-          clue_down: 2,
-          number: 2
-        },
-        {
-          id: "A7",
-          letter: "t",
-          across: true,
-          clue_across: 1,
-          down: false,
-          clue_down: null
-        },
-        {
-          id: "A8",
-          letter: null
-        },
-        {
-          id: "B1",
-          letter: null
-        },
-        {
-          id: "B2",
-          letter: null
-        },
-        {
-          id: "B3",
-          letter: "e",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 1
-        },
-        {
-          id: "B4",
-          letter: null
-        },
-        {
-          id: "B5",
-          letter: null
-        },
-        {
-          id: "B6",
-          letter: "h",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "B7",
-          letter: null
-        },
-        {
-          id: "B8",
-          letter: null
-        },
-        {
-          id: "C1",
-          letter: null
-        },
-        {
-          id: "C2",
-          letter: null
-        },
-        {
-          id: "C3",
-          letter: "n",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 1
-        },
-        {
-          id: "C4",
-          letter: null
-        },
-        {
-          id: "C5",
-          letter: null
-        },
-        {
-          id: "C6",
-          letter: "a",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "C7",
-          letter: null
-        },
-        {
-          id: "C8",
-          letter: null
-        },
-        {
-          id: "D1",
-          letter: null
-        },
-        {
-          id: "D2",
-          letter: null
-        },
-        {
-          id: "D3",
-          letter: "d",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 1
-        },
-        {
-          id: "D4",
-          letter: null
-        },
-        {
-          id: "D5",
-          letter: null
-        },
-        {
-          id: "D6",
-          letter: "r",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "D7",
-          letter: null
-        },
-        {
-          id: "D8",
-          letter: null
-        },
-        {
-          id: "E1",
-          letter: null
-        },
-        {
-          id: "E2",
-          letter: null
-        },
-        {
-          id: "E3",
-          letter: "e",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 1
-        },
-        {
-          id: "E4",
-          letter: null
-        },
-        {
-          id: "E5",
-          letter: null
-        },
-        {
-          id: "E6",
-          letter: "l",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "E7",
-          letter: null
-        },
-        {
-          id: "E8",
-          letter: null
-        },
-        {
-          id: "F1",
-          letter: null
-        },
-        {
-          id: "F2",
-          letter: null
-        },
-        {
-          id: "F3",
-          letter: "r",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 1
-        },
-        {
-          id: "F4",
-          letter: null
-        },
-        {
-          id: "F5",
-          letter: null
-        },
-        {
-          id: "F6",
-          letter: "e",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "F7",
-          letter: null
-        },
-        {
-          id: "F8",
-          letter: null
-        },
-        {
-          id: "G1",
-          letter: null
-        },
-        {
-          id: "G2",
-          letter: null
-        },
-        {
-          id: "G3",
-          letter: null
-        },
-        {
-          id: "G4",
-          letter: null
-        },
-        {
-          id: "G5",
-          letter: null
-        },
-        {
-          id: "G6",
-          letter: "s",
-          across: false,
-          clue_across: null,
-          down: true,
-          clue_down: 2
-        },
-        {
-          id: "G7",
-          letter: null
-        },
-        {
-          id: "G8",
-          letter: null
-        },
-        {
-          id: "H1",
-          letter: null
-        },
-        {
-          id: "H2",
-          letter: null
-        },
-        {
-          id: "H3",
-          letter: null
-        },
-        {
-          id: "H4",
-          letter: null
-        },
-        {
-          id: "H5",
-          letter: null
-        },
-        {
-          id: "H6",
-          letter: null
-        },
-        {
-          id: "H7",
-          letter: null
-        },
-        {
-          id: "H8",
-          letter: null
-        }
-      ]
+      grid: []
     };
+    this.postMap = this.postMap.bind(this);
+    this.changeMap = this.changeMap.bind(this);
+    this.toggleWarning = this.toggleWarning.bind(this);
+    this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
+    this.finishAndNextLevel = this.finishAndNextLevel.bind(this);
+    this.confirmNextLevel = this.confirmNextLevel.bind(this);
+
   }
+  //设置warning开关 ture或者false，调用这个方法来启动warning弹出框
+  toggleWarning() {
+    this.setState({
+      warning: !this.state.warning,
+    });
+  }
+  //设置warningFinish开关 ture或者false，调用这个方法来启动warningFinish弹出框
+  toggleWarningFinish() {
+    this.setState({
+      warningFinish: !this.state.warningFinish,
+    });
+  }
+//从数据库得到数据并放入state中
+  componentDidMount() {
+    this.getMapFromServer(1);
+
+  }
+
+//向数据库里存地图
+  postMap() {
+    axios.post("/api/crosswords/post")
+      .then(res => {
+        alert("post succesful");
+
+      });
+
+  }
+
+  //更新地图,进入到下一关
+  changeMap() {
+    this.getMapFromServer(this.state.level+1);
+  }
+
+  //从服务器获取地图
+  getMapFromServer(levelTemp){
+    axios.get("/api/crosswords/get", {
+      params: {
+        level: levelTemp
+      }
+    })
+      .then(response => {
+        //在浏览器console打印
+        this.setState({
+          time: new Date().getTime(),
+          totalCorrect: response.data.totalCorrect,
+          level: response.data.level,
+          clues: response.data.clues,
+          grid: response.data.grid
+
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+  //确认进入下一关
+  confirmNextLevel(){
+    this.setState({
+      warning: false,
+      warningFinish: false
+    });
+    this.changeMap();
+
+  }
+  //完成本关进入下一关
+  finishAndNextLevel() {
+    let finish = new Date().getTime();
+    let t = finish - this.state.time;
+    this.setState( {elapsedTime: t})
+    this.toggleWarningFinish();
+
+  }
+
+
+
   //以下为JSX语法，在JSX中用{}来包含JS语句
   render() {
+    //console.log(this.state);
+
     return (
-      <div className="crossword">
+      //设置key来作为唯一id，如果key 不同则所有子控件都会不同
+      <div className="crossword" key={this.state.level}>
+        <h1>LEVEL {this.state.level}</h1>
+        <div>
+
+          {/*<button onClick={this.postMap}>post map</button>*/}
+          <button type="button" className={"btn btn-success"} onClick={this.toggleWarning}>Next level</button>
+        </div>
+
         <div className="clue-lists">
           <div>
-            <h2>Across</h2>
+            <h3>Across</h3>
             {/*属性小写，把clues属性传到下一个组件，在Clues组件中用this.props.clues来调用传入的参数*/}
-            <Clues clues={this.state.clues.across} />
+            <Clues clues={this.state.clues.across}/>
           </div>
           <div>
-            <h2>Down</h2>
+            <h3>Down</h3>
             {/*复用Clues组件，把要传入的参数放到clues中*/}
-            <Clues clues={this.state.clues.down} />
+            <Clues clues={this.state.clues.down}/>
           </div>
+
         </div>
-        <Boxes clues={this.state.clues} grid={this.state.grid} />
+
+        <Boxes level={this.state.level} grid={this.state.grid} totalCorrect={this.state.totalCorrect}
+               finishAndNextLevel={this.finishAndNextLevel}/>
+
+        <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
+               className={'modal-warning ' + this.props.className}>
+          <ModalHeader toggle={this.toggleWarning}>Warning!</ModalHeader>
+          <ModalBody>
+            Do you want to skip this level?
+          </ModalBody>
+          <ModalFooter>
+            <Button color="warning" onClick={this.confirmNextLevel}>Confirm</Button>
+            <Button color="secondary" onClick={this.toggleWarning}>Cancel</Button>
+          </ModalFooter>
+
+        </Modal>
+
+        <Modal isOpen={this.state.warningFinish} toggle={this.toggleWarningFinish}
+               className={'modal-finish ' + this.props.className}>
+          <ModalHeader toggle={this.toggleWarningFinish}>Congratulations!</ModalHeader>
+          <ModalBody>
+            You have finished this level!
+            Time taken : {this.state.elapsedTime/1000} seconds.<br/>
+            Confirm to go to the next level.
+
+          </ModalBody>
+
+          <ModalFooter>
+            <Button color="warning" onClick={this.confirmNextLevel}>Confirm</Button>
+            <Button color="secondary" onClick={this.toggleWarningFinish}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
