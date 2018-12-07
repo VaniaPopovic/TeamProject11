@@ -21,19 +21,19 @@ export default {
     {
       name: 'Word Find',
       url: '/dashboard',
-      icon: 'icon-ban',
+      icon: 'icon-game-controller',
       attributes: { },
     },
     {
       name: 'Crosswords',
       url: '/crosswords',
-      icon: 'icon-ban',
+      icon: 'icon-game-controller',
       attributes: { },
     },
       {
       name: 'Scrabble',
       url: '/scrabble',
-      icon: 'icon-ban',
+      icon: 'icon-game-controller',
       attributes: { },
     },
   ],

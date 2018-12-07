@@ -33,7 +33,7 @@ class Scrabble extends Component {
       score: 0,
       answers: answ,
       fadeIn: false,
-      info: false,
+      info: true,
      }
 
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
@@ -176,17 +176,16 @@ class Scrabble extends Component {
       
                 <Modal isOpen={this.state.info} toggle={this.toggleInfo}
                        className={'modal-info ' + this.props.className}>
-                  <ModalHeader toggle={this.toggleInfo}>Modal title</ModalHeader>
+                  <ModalHeader toggle={this.toggleInfo}>Welcome to Scrabble</ModalHeader>
                   <ModalBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
+                    Your aim is to find as many words by connecting the tiles available. <br></br>
+                    There are 10 levels with different amount of words to be found in each level.<br></br>
+                    To get points of the word you need to drag the tiles and connect them in the fuscia box!<br></br>
+                    For each level you get a time limit depending on the difficulty!<br></br>
+                    Good luck!
                   </ModalBody>
                   <ModalFooter>
-                    <Button color="primary" onClick={this.toggleInfo}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={this.toggleInfo}>Cancel</Button>
+                    <Button color="primary" onClick={this.toggleInfo}>I am ready!</Button>{' '}
                   </ModalFooter>
                 </Modal>
 
