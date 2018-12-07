@@ -14,7 +14,7 @@ import {
 import FlipMove from 'react-flip-move';
 import tiles from './tiles.js';
 import PropTypes from 'prop-types';
-import { Fade, Alert } from 'reactstrap';
+import { Fade, Alert, Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'reactstrap';
 
 
 const BOARD_WIDTH   = 11;
@@ -32,13 +32,19 @@ class Scrabble extends Component {
     { tiles,
       score: 0,
       answers: answ,
-      fadeIn: false
+      fadeIn: false,
+      info: false,
      }
 
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
     this.resetTiles = this.resetTiles.bind(this);
+    this.toggleInfo = this.toggleInfo.bind(this);
   }
-
+  toggleInfo() {
+    this.setState({
+      info: !this.state.info,
+    });
+  }
   updateDroppedTilePosition({x, y}, tile) {
     // Normally, this would be done through a Redux action, but because this
     // is such a contrived example, I'm just passing the action down through
@@ -167,6 +173,23 @@ class Scrabble extends Component {
           </div>
         </div>
       </div>
+      
+                <Modal isOpen={this.state.info} toggle={this.toggleInfo}
+                       className={'modal-info ' + this.props.className}>
+                  <ModalHeader toggle={this.toggleInfo}>Modal title</ModalHeader>
+                  <ModalBody>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum.
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="primary" onClick={this.toggleInfo}>Do Something</Button>{' '}
+                    <Button color="secondary" onClick={this.toggleInfo}>Cancel</Button>
+                  </ModalFooter>
+                </Modal>
+
       </div>
     );
   }
