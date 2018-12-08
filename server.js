@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+var express = require('express');
 var app = require('./app');
 var debug = require('debug')('mean-app:server');
 var http = require('http');
@@ -11,7 +11,7 @@ const port = normalizePort(process.env.PORT || 5000);
 
 
 var http = require('http');
-
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.set('port', port);
 

@@ -12,7 +12,7 @@ import {
 }                                       from 'react-dnd';
 
 import FlipMove from 'react-flip-move';
-import tiles from './tiles.js';
+import tiless from './tiles.json';
 import PropTypes from 'prop-types';
 import { Fade, Alert, Modal, ModalBody, ModalFooter, ModalHeader, Button } from 'reactstrap';
 
@@ -29,13 +29,13 @@ class Scrabble extends Component {
     super(props);
     var answ = ["cat","tap","cap","at","act"];
     this.state = 
-    { tiles,
+    { tiles: tiless.scrabble[0].grid,
       score: 0,
       answers: answ,
       fadeIn: false,
       info: true,
      }
-
+    console.log("TILES",tiless.scrabble[0].grid);
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
     this.resetTiles = this.resetTiles.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
@@ -56,13 +56,14 @@ class Scrabble extends Component {
 
     // Set it to a new copy of the tile, but with the new coords
     stateTiles[index] = { ...tile, x, y };
-
+    
     this.setState({ tiles: stateTiles });
+    console.log(this.state.tiles);
     this.checkForWords();
   }
 
   resetTiles() {
-    this.setState({ tiles });
+    this.setState({ tiles: tiless.Scrabble.grid[0] });
   }
 
   renderTiles() {
@@ -181,7 +182,7 @@ class Scrabble extends Component {
                     Your aim is to find as many words by connecting the tiles available. <br></br>
                     There are 10 levels with different amount of words to be found in each level.<br></br>
                     To get points of the word you need to drag the tiles and connect them in the fuscia box!<br></br>
-                    For each level you get a time limit depending on the difficulty!<br></br>
+                    For each level you get a time limit depending on the difficulty!
                     Good luck!
                   </ModalBody>
                   <ModalFooter>
@@ -221,14 +222,13 @@ class Tile extends Component {
     x:                  PropTypes.number.isRequired,
     y:                  PropTypes.number.isRequired,
     letter:             PropTypes.string.isRequired,
-    points:             PropTypes.number.isRequired,
     connectDragSource:  PropTypes.func.isRequired,
     isDragging:         PropTypes.bool.isRequired
   };
 
   render() {
     const {
-      connectDropTarget, connectDragSource, isDragging, letter, points, x, y
+      connectDropTarget, connectDragSource, isDragging, letter, x, y
     } = this.props;
 
     const styles = {
@@ -241,7 +241,6 @@ class Tile extends Component {
     return connectDropTarget(connectDragSource(
       <div className="tile" style={styles}>
         <span className="tile-letter">{letter}</span>
-        <span className="tile-points">{points}</span>
       </div>
     ));
   }
