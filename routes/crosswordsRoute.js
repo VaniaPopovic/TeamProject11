@@ -4,7 +4,7 @@ var Crosswords = require("../models/Crosswords");
 
 
 router.get("/get", function(req, res) {
-//根据条件查找document
+//根据条件查找document,find则res为一个list，findOne则返回是一个对象
   Crosswords.findOne({
     "level": req.query.level
   }, function(err, jobs) {
@@ -20,70 +20,61 @@ router.get("/get", function(req, res) {
 //POST route for updating data
 router.post("/post", function(req, res, next) {
 
+//level 9
   const mapData = new Crosswords({
-    level: 10,
-    totalCorrect: 28,
+    level: 9,
+    totalCorrect: 24,
     clues: {
 
       across: [
         {
           number: 1,
-          clue: "Monday,Tuesday,Wednesday.....",
-          answer: "days"
+          clue: "We get milk from this animal.",
+          answer: "cow"
         },
         {
           number: 2,
-          clue: "The nationality of a person from Ireland.",
-          answer: "irish"
+          clue: "Cat's feet.",
+          answer: "paws"
         },
         {
           number: 3,
-          clue: "Twinkling night sky object.",
-          answer: "star"
+          clue: "You might find this little jumping pest on your dog.",
+          answer: "flea"
         },
         {
           number: 4,
-          clue: "A round object from chicken,used for food.",
-          answer: "egg"
+          clue: "An insect produces wax and honey.",
+          answer: "bee"
         }
       ],
       down: [
         {
+          number: 1,
+          clue: "Baby lions or bears.",
+          answer: "cubs"
+        },
+        {
+          number: 4,
+          clue: "Use the teeth to cut.",
+          answer: "bite"
+        },
+        {
           number: 5,
-          clue: "A wide way leading from one place to another.",
-          answer: "road"
+          clue: "A large wild dog.",
+          answer: "wolf"
         },
         {
           number: 6,
-          clue: "In the middle of.",
-          answer: "among"
-        },
-        {
-          number: 7,
-          clue: "A polite way to address an adult man.",
-          answer: "sir"
-        },
-        {
-          number: 8,
-          clue: "The part between your hand and your arm.",
-          answer: "wrist"
-        },
-        {
-          number: 9,
-          clue: "A boy is he, a girl is __.",
-          answer: "she"
+          clue: "Huge ocean-going mammal.",
+          answer: "whale"
         }
       ]
     },
     grid: [
       {
         id: "A1",
-        letter: "r",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 5,
-        number: 5
+        letter: null
       },
       {
         id: "A2",
@@ -95,15 +86,29 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "A4",
-        letter: null
+        letter: "c",
+        across: true,
+        clue_across: 1,
+        down: true,
+        clue_down: 1,
+        number: 1
       },
       {
         id: "A5",
-        letter: null
+        letter: "o",
+        across: true,
+        clue_across: 1,
+        down: false,
+        clue_down: null
       },
       {
         id: "A6",
-        letter: null
+        letter: "w",
+        across: true,
+        clue_across: 1,
+        down: true,
+        clue_down: 5,
+        number: 5
       },
       {
         id: "A7",
@@ -118,16 +123,8 @@ router.post("/post", function(req, res, next) {
         letter: null
       },
       {
-        id: "A10",
-        letter: null
-      },
-      {
         id: "B1",
-        letter: "o",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 5
+        letter: null
       },
       {
         id: "B2",
@@ -139,7 +136,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "B4",
-        letter: null
+        letter: "u",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 1
       },
       {
         id: "B5",
@@ -147,7 +148,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "B6",
-        letter: null
+        letter: "o",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 5
       },
       {
         id: "B7",
@@ -159,19 +164,16 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "B9",
-        letter: null
-      },
-      {
-        id: "B10",
-        letter: null
-      },
-      {
-        id: "C1",
-        letter: "a",
+        letter: "w",
         across: false,
         clue_across: null,
         down: true,
-        clue_down: 5
+        clue_down: 6,
+        number: 6
+      },
+      {
+        id: "C1",
+        letter: null
 
       },
       {
@@ -184,7 +186,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "C4",
-        letter: null
+        letter: "b",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 1
       },
       {
         id: "C5",
@@ -192,12 +198,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "C6",
-        letter: "w",
+        letter: "l",
         across: false,
         clue_across: null,
         down: true,
-        clue_down: 8,
-        number: 8
+        clue_down: 5
       },
       {
         id: "C7",
@@ -209,34 +214,34 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "C9",
-        letter: null
-      },
-      {
-        id: "C10",
-        letter: null
+        letter: "h",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 6
       },
       {
         id: "D1",
-        letter: "d",
+        letter: "p",
         across: true,
-        clue_across: 1,
-        down: true,
-        clue_down: 5,
-        number: 1
+        clue_across: 2,
+        down: false,
+        clue_down: null,
+        number: 2
       },
       {
         id: "D2",
         letter: "a",
         across: true,
-        clue_across: 1,
+        clue_across: 2,
         down: false,
         clue_down: null
       },
       {
         id: "D3",
-        letter: "y",
+        letter: "w",
         across: true,
-        clue_across: 1,
+        clue_across: 2,
         down: false,
         clue_down: null
       },
@@ -244,10 +249,9 @@ router.post("/post", function(req, res, next) {
         id: "D4",
         letter: "s",
         across: true,
-        clue_across: 1,
+        clue_across: 2,
         down: true,
-        clue_down: 7,
-        number: 7
+        clue_down: 1
       },
       {
         id: "D5",
@@ -255,32 +259,36 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "D6",
-        letter: "r",
-        across: false,
-        clue_across: null,
+        letter: "f",
+        across: true,
+        clue_across: 3,
         down: true,
-        clue_down: 8
+        clue_down: 5,
+        number: 3
       },
       {
         id: "D7",
-        letter: null
+        letter: "l",
+        across: true,
+        clue_across: 3,
+        down: false,
+        clue_down: null
       },
       {
         id: "D8",
-        letter: "s",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 9,
-        number: 9
+        letter: "e",
+        across: true,
+        clue_across: 3,
+        down: false,
+        clue_down: null
       },
       {
         id: "D9",
-        letter: null
-      },
-      {
-        id: "D10",
-        letter: null
+        letter: "a",
+        across: true,
+        clue_across: 3,
+        down: true,
+        clue_down: 6
       },
       {
         id: "E1",
@@ -296,86 +304,47 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "E4",
-        letter: "i",
-        across: true,
-        clue_across: 2,
-        down: true,
-        clue_down: 7,
-        number: 2
+        letter: null
       },
       {
         id: "E5",
-        letter: "r",
-        across: true,
-        clue_across: 2,
-        down: false,
-        clue_down: null
+        letter: null
       },
       {
         id: "E6",
-        letter: "i",
-        across: true,
-        clue_across: 2,
-        down: true,
-        clue_down: 8
+        letter: null
       },
       {
         id: "E7",
-        letter: "s",
-        across: true,
-        clue_across: 2,
-        down: false,
-        clue_down: null
+        letter: null
       },
       {
         id: "E8",
-        letter: "h",
-        across: true,
-        clue_across: 2,
-        down: true,
-        clue_down: 9
+        letter: null
       },
       {
         id: "E9",
-        letter: null
-      },
-      {
-        id: "E10",
-        letter: null
+        letter: "l",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 6
       },
       {
         id: "F1",
-        letter: "s",
-        across: true,
-        clue_across: 3,
-        down: false,
-        clue_down: null,
-        number: 3
+        letter: null
       },
       {
         id: "F2",
-        letter: "t",
-        across: true,
-        clue_across: 3,
-        down: false,
-        clue_down: null
+        letter: null
       },
       {
         id: "F3",
-        letter: "a",
-        across: true,
-        clue_across: 3,
-        down: true,
-        clue_down: 6,
-        number: 6
+        letter: null
       },
       {
         id: "F4",
-        letter: "r",
-        across: true,
-        clue_across: 3,
-        down: true,
-        clue_down: 7
+        letter: null
       },
       {
         id: "F5",
@@ -383,36 +352,28 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "F6",
-        letter: "s",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 8
+        letter: null
       },
       {
         id: "F7",
-        letter: null
+        letter: "b",
+        across: true,
+        clue_across: 4,
+        down: true,
+        clue_down: 4,
+        number: 4
       },
       {
         id: "F8",
         letter: "e",
         across: true,
         clue_across: 4,
-        down: true,
-        clue_down: 9,
-        number: 4
-      },
-      {
-        id: "F9",
-        letter: "g",
-        across: true,
-        clue_across: 4,
         down: false,
         clue_down: null
       },
       {
-        id: "F10",
-        letter: "g",
+        id: "F9",
+        letter: "e",
         across: true,
         clue_across: 4,
         down: false,
@@ -428,11 +389,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "G3",
-        letter: "m",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 6
+        letter: null
       },
       {
         id: "G4",
@@ -444,15 +401,15 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "G6",
-        letter: "t",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 8
+        letter: null
       },
       {
         id: "G7",
-        letter: null
+        letter: "i",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 4
       },
       {
         id: "G8",
@@ -460,10 +417,6 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "G9",
-        letter: null
-      },
-      {
-        id: "G10",
         letter: null
       },
       {
@@ -476,11 +429,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "H3",
-        letter: "o",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 6
+        letter: null
       },
       {
         id: "H4",
@@ -496,7 +445,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "H7",
-        letter: null
+        letter: "t",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 4
       },
       {
         id: "H8",
@@ -505,12 +458,7 @@ router.post("/post", function(req, res, next) {
       {
         id: "H9",
         letter: null
-      },
-      {
-        id: "H10",
-        letter: null
-      },
-      {
+      }, {
         id: "I1",
         letter: null
       },
@@ -520,11 +468,7 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "I3",
-        letter: "n",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 6
+        letter: null
       },
       {
         id: "I4",
@@ -540,7 +484,11 @@ router.post("/post", function(req, res, next) {
       },
       {
         id: "I7",
-        letter: null
+        letter: "e",
+        across: false,
+        clue_across: null,
+        down: true,
+        clue_down: 4
       },
       {
         id: "I8",
@@ -549,59 +497,10 @@ router.post("/post", function(req, res, next) {
       {
         id: "I9",
         letter: null
-      },
-      {
-        id: "I10",
-        letter: null
-      },
-      {
-        id: "J1",
-        letter: null
-      },
-      {
-        id: "J2",
-        letter: null
-      },
-      {
-        id: "J3",
-        letter: "g",
-        across: false,
-        clue_across: null,
-        down: true,
-        clue_down: 6
-      },
-      {
-        id: "J4",
-        letter: null
-      },
-      {
-        id: "J5",
-        letter: null
-      },
-      {
-        id: "J6",
-        letter: null
-      },
-      {
-        id: "J7",
-        letter: null
-      },
-      {
-        id: "J8",
-        letter: null
-      },
-      {
-        id: "J9",
-        letter: null
-      },
-      {
-        id: "J10",
-        letter: null
       }
     ]
 
   });
-
 //把数据存入到数据库中
   mapData.save()
     .then(data => {

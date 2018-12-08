@@ -1,8 +1,72 @@
 {
   "puzzles": [
-    {"grid": [["cattless"], ["dogdefgh"], ["obcdcath"], ["gogsefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"], ["abcdefgh"]], 
-	"answers": ["cat", "dog"]
-	},
-	{"grid":[["0c000d00"],["0h0cio00"],["0a0hpg00"],["0r0ah 0v"],["0g0ro00a"],["0e0ln00n"],["000ee00j"],["000s000a"]],"difficulty":"EASY","answers":["charles","vanja","iphone","dog ","charge"]}
+    {
+      "grid": [
+        [
+          "cattless"
+        ],
+        [
+          "dogdefgh"
+        ],
+        [
+          "obcdcath"
+        ],
+        [
+          "gogsefgh"
+        ],
+        [
+          "abcdefgh"
+        ],
+        [
+          "abcdefgh"
+        ],
+        [
+          "abcdefgh"
+        ],
+        [
+          "abcdefgh"
+        ]
+      ],
+      "answers": [
+        "cat",
+        "dog"
+      ]
+    },
+    {
+      "grid": [
+        [
+          "0c000d00"
+        ],
+        [
+          "0h0cio00"
+        ],
+        [
+          "0a0hpg00"
+        ],
+        [
+          "0r0ah 0v"
+        ],
+        [
+          "0g0ro00a"
+        ],
+        [
+          "0e0ln00n"
+        ],
+        [
+          "000ee00j"
+        ],
+        [
+          "000s000a"
+        ]
+      ],
+      "difficulty": "EASY",
+      "answers": [
+        "charles",
+        "vanja",
+        "iphone",
+        "dog ",
+        "charge"
+      ]
+    }
   ]
 }

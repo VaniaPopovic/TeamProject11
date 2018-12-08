@@ -4,10 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+var app = express();
 var book = require('./routes/puzzle');
 var auth = require('./routes/auth');
 var crosswords = require('./routes/crosswordsRoute');
-var app = express();
+var wordFind = require('./routes/wordFindRoute')
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -17,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/api/puzzle', book);
 app.use('/api/auth', auth);
 app.use('/api/crosswords', crosswords);
+app.use('/api/wordFind', wordFind);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,8 +45,10 @@ app.use(function(err, req, res, next) {
 
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-mongoose.connect('mongodb://localhost/mern-secure', { promiseLibrary: require('bluebird') })
-  .then(() =>  console.log('connection succesful'))
+//mongoose.connect('mongodb://localhost/mern-secure', { promiseLibrary: require('bluebird') })
+//use mongodb atlas database
+mongoose.connect('mongodb+srv://admin:6670517@cluster0-oaiei.gcp.mongodb.net/WordGame', { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('Database connection successful!!!!!!'))
   .catch((err) => console.error(err));
 
 module.exports = app;

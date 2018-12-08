@@ -646,7 +646,7 @@ const mapData = new Crosswords({
 
 //LEVEL 3  --- 3 4 5
 const mapData = new Crosswords({
-  level: 2,
+  level: 3,
   totalCorrect: 8,
   clues: {
 

@@ -75,6 +75,7 @@ class Crosswords extends Component {
       })
       .then(response => {
         //在浏览器console打印
+        console.log(response.data);
         this.setState({
           time: new Date().getTime(),
           totalCorrect: response.data.totalCorrect,
@@ -112,7 +113,7 @@ class Crosswords extends Component {
       <div className="crossword" key={this.state.level}>
         <h1>LEVEL {this.state.level}</h1>
         <div>
-          {/*<button onClick={this.postMap}>post map</button>*/}
+          {/* <button onClick={this.postMap}>post map</button> */}
           <button
             type="button"
             className={"btn btn-success"}
