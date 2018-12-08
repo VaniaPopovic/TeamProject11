@@ -75,7 +75,7 @@ class Crosswords extends Component {
       })
       .then(response => {
         //在浏览器console打印
-        console.log(response.data);
+        //console.log(response.data);
         this.setState({
           time: new Date().getTime(),
           totalCorrect: response.data.totalCorrect,

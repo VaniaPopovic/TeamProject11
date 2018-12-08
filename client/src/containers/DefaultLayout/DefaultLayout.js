@@ -31,8 +31,9 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault()
     this.props.history.push('/login')
-    
+
   }
+  /*
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/book')
@@ -46,6 +47,7 @@ class DefaultLayout extends Component {
         }
       });
   }
+  */
 
   logout = () => {
     localStorage.removeItem('jwtToken');

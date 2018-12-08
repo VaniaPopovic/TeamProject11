@@ -11,13 +11,14 @@ class Dashboard extends Component {
 
     // TODO: Load data asynchronously.
     this.state = {
-      //puzzles: puzzleData.puzzles,
-      puzzles: [{
+      puzzles: puzzleData.puzzles,
+      /*puzzles: [{
         level: 0,
         difficulty: " ",
         answers: "",
         grid: []
       }],
+      */
       info: true
     };
     this.toggleInfo = this.toggleInfo.bind(this);
