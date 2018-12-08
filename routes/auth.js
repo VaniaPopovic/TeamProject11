@@ -8,9 +8,10 @@ var router = express.Router();
 var User = require("../models/user");
 
 router.post('/register', function(req, res) {
+  //if it is null
   if (!req.body.username || !req.body.password) {
     res.json({success: false, msg: 'Please pass username and password.'});
-  } else {
+  } else {//post successfully
     var newUser = new User({
       username: req.body.username,
       password: req.body.password
@@ -20,7 +21,7 @@ router.post('/register', function(req, res) {
       if (err) {
         return res.json({success: false, msg: 'Username already exists.'});
       }
-      res.json({success: true, msg: 'Successful created new user.'});
+      res.json({success: true, msg: 'Successful created new user. You can login now.'});
     });
   }
 });

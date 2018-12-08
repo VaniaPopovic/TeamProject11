@@ -146,12 +146,12 @@ class Crosswords extends Component {
         <Modal
           isOpen={this.state.warning}
           toggle={this.toggleWarning}
-          className={"modal-warning " + this.props.className}
+          className={"modal-info " + this.props.className}
         >
           <ModalHeader toggle={this.toggleWarning}>Warning!</ModalHeader>
           <ModalBody>Do you want to skip this level?</ModalBody>
           <ModalFooter>
-            <Button color="warning" onClick={this.confirmNextLevel}>
+            <Button color="primary" onClick={this.confirmNextLevel}>
               Confirm
             </Button>
             <Button color="secondary" onClick={this.toggleWarning}>
@@ -163,7 +163,7 @@ class Crosswords extends Component {
         <Modal
           isOpen={this.state.warningFinish}
           toggle={this.toggleWarningFinish}
-          className={"modal-finish " + this.props.className}
+          className={"modal-info " + this.props.className}
         >
           <ModalHeader toggle={this.toggleWarningFinish}>
             Congratulations!
@@ -176,7 +176,7 @@ class Crosswords extends Component {
           </ModalBody>
 
           <ModalFooter>
-            <Button color="warning" onClick={this.confirmNextLevel}>
+            <Button color="primary" onClick={this.confirmNextLevel}>
               Confirm
             </Button>
             <Button color="secondary" onClick={this.toggleWarningFinish}>
@@ -190,16 +190,14 @@ class Crosswords extends Component {
           className={"modal-info " + this.props.className}
         >
           <ModalHeader toggle={this.toggleInfo}>
-            Welcome to the Crossword game!
+            Welcome to the Crosswords game!
           </ModalHeader>
           <ModalBody>
-           sadasd.{" "}
+            There are 10 levels with different clues of words in each level.<br />
+            You should guess the words and put them into the blank.
+            If your input is right, the blank will turn green.
             <br />
-            sdasd
-            each level.<br />
-           sadasd
-            them in the fuscia box!<br />
-            asdas
+            For each word, there is an anwser but I wish you can guess the word by yourself.
             <br />
             Good luck!
           </ModalBody>

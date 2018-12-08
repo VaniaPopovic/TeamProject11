@@ -1,46 +1,58 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+var bcrypt = require("bcrypt-nodejs");
 
 var UserSchema = new Schema({
   username: {
-        type: String,
-        unique: true,
-        required: true
-    },
+    type: String,
+    unique: true,
+    required: true
+  },
   password: {
-        type: String,
-        required: true
-    }
+    type: String,
+    required: true
+  },
+  wordFindInfo: {
+    level: Number,
+    difficulty: String
+  },
+  crosswordInfo: {
+    level: Number
+  },
+  scrabbleInfo: {
+    level: Number,
+    score: Number
+  }
+
 });
 
-UserSchema.pre('save', function (next) {
-    var user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, null, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
-        });
-    } else {
-        return next();
-    }
-});
-
-UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
+UserSchema.pre("save", function(next) {
+  var user = this;
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function(err, salt) {
+      if (err) {
+        return next(err);
+      }
+      bcrypt.hash(user.password, salt, null, function(err, hash) {
         if (err) {
-            return cb(err);
+          return next(err);
         }
-        cb(null, isMatch);
+        user.password = hash;
+        next();
+      });
     });
+  } else {
+    return next();
+  }
+});
+
+UserSchema.methods.comparePassword = function(passw, cb) {
+  bcrypt.compare(passw, this.password, function(err, isMatch) {
+    if (err) {
+      return cb(err);
+    }
+    cb(null, isMatch);
+  });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model("User", UserSchema);

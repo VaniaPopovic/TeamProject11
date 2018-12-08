@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import {
+  Modal, ModalBody, ModalFooter, ModalHeader,
   Button,
   Card,
   CardBody,
@@ -23,10 +24,17 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      message: ""
+      message: "",
+      info: false
     };
+    this.toggleInfo = this.toggleInfo.bind(this);
     //this.handleChange = this.handleChange.bind(this);
     //this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  toggleInfo() {
+    this.setState({
+      info: !this.state.info
+    });
   }
   handleChange = prop => event => {
     this.setState({ [prop]: event.target.value });
@@ -47,8 +55,9 @@ class Login extends Component {
       .catch(error => {
         if (error.response.status === 401) {
           this.setState({
-            message: "Login failed. Username or password not match"
+            message: "Login failed！ Username or password does not match."
           });
+          this.toggleInfo();
         }
       });
   };
@@ -102,11 +111,13 @@ class Login extends Component {
                             Login
                           </Button>
                         </Col>
+                        {/*
                         <Col xs="6" className="text-right">
                           <Button color="link" className="px-0">
                             Forgot password?
                           </Button>
                         </Col>
+                        */}
                       </Row>
                     </Form>
                   </CardBody>
@@ -119,9 +130,8 @@ class Login extends Component {
                     <div>
                       <h2>Sign up</h2>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
+                        Welcome to Word Games, if you did not have an account, please
+                        register below.
                       </p>
                       <Link to="/register">
                         <Button
@@ -140,6 +150,24 @@ class Login extends Component {
             </Col>
           </Row>
         </Container>
+
+        <Modal
+          isOpen={this.state.info}
+          toggle={this.toggleInfo}
+          className={"modal-info " + this.props.className}
+        >
+          <ModalHeader toggle={this.toggleInfo}>
+            Warning!
+          </ModalHeader>
+          <ModalBody>
+            {this.state.message}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleInfo}>
+              confirm
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
