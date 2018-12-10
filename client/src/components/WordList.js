@@ -1,29 +1,28 @@
 import React, { Component } from "react";
+import { ListGroup, ListGroupItem } from "reactstrap";
 class WordList extends Component {
   render() {
     var answers = this.props.answers;
     console.log("ans", answers);
     return (
       <div>
-        <h3>Find the words</h3>
-        {/*TODO: PUT ME IN A STYLISH BOX POSSIBLY GRID WITH COLUMNS*/}
-        <ul className="list-group">
+        <ListGroup >
           {answers.map(answer => {
             if (answer.isFound) {
               return (
-                <li className="list-group-item active" key={answer.value}>
-                  <del>{answer.value}</del>
-                </li>
+                <ListGroupItem key={answer.value}>
+                 <p><del>{answer.value}</del></p>
+                </ListGroupItem>
               );
             } else {
               return (
-                <li className="list-group-item active" key={answer.value}>
-                  {answer.value}
-                </li>
+                <ListGroupItem className="list-group-item active" key={answer.value}>
+                  <p>{answer.value}</p>
+                </ListGroupItem>
               );
             }
           })}
-        </ul>
+        </ListGroup>
       </div>
     );
   }

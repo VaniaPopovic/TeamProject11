@@ -8,7 +8,8 @@ var app = express();
 var book = require('./routes/puzzle');
 var auth = require('./routes/auth');
 var crosswords = require('./routes/crosswordsRoute');
-var wordFind = require('./routes/wordFindRoute')
+var wordFind = require('./routes/wordFindRoute');
+var Scrabble = require('./routes/scrabbleRoute');
 
 
 app.use(logger('dev'));
@@ -20,6 +21,7 @@ app.use('/api/puzzle', book);
 app.use('/api/auth', auth);
 app.use('/api/crosswords', crosswords);
 app.use('/api/wordFind', wordFind);
+app.use('/api/Scrabble', Scrabble);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

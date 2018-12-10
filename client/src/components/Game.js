@@ -171,14 +171,18 @@ class Game extends Component {
     return (
       <div className="game-container">
       <h1>LEVEL {this.state.puzzleIndex}</h1>
-        <WordList answers={answers} />
-        <div className="game-board">
+      <Col xs="8">
+        <div className="">
           <BoxGrid
             squares={this.state.squares}
             onMakeSelection={this.handleMakeSelection.bind(this)}
           />
-        
-        </div>
+           </div>
+          </Col>
+          <Col xs="4">
+          <WordList answers={answers} />
+          </Col>
+       
                 <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
                        className={'modal-warning ' + this.props.className}>
                   <ModalHeader toggle={this.toggleWarning}>Modal title</ModalHeader>
