@@ -18,6 +18,7 @@ import {
   ModalHeader,
   Button
 } from "reactstrap";
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 const BOARD_WIDTH = 11;
 const BOARD_HEIGHT = 7;
@@ -30,6 +31,7 @@ class Scrabble extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      gameIndex:0,
       tiles: [],
       score: 0,
       answers: [],
@@ -45,12 +47,12 @@ class Scrabble extends Component {
 
   componentDidMount(){
     console.log("mounting");
-    this.getMapFromServer(0);
+    this.getMapFromServer(this.state.gameIndex);
   }
   //get map from database
   getMapFromServer(lvl) {
     axios
-      .get("/api/wordFind/get",{
+      .get("/api/Scrabble/get",{
         params: {
           level: lvl
         }
@@ -156,25 +158,61 @@ class Scrabble extends Component {
 
     for (var i = 0; i < this.state.answers.length; i++) {
       if (word == this.state.answers[i]) {
+        //if word not already found
+        if(!this.state.foundWords.includes(word)){
+        let found = this.state.foundWords;
+        found.push(word);
         result = true;
         console.log("FOUND IT");
         var sc = this.state.score + 10;
-        this.setState({ score: sc, fadeIn: !this.state.fadeIn });
+        this.setState({ score: sc, fadeIn: !this.state.fadeIn,foundWords: found });
 
         setTimeout(() => {
           this.setState({
-            fadeIn: !this.state.fadeIn
+            fadeIn: !this.state.fadeIn,
+            
           });
         }, 2000);
+        this.isGameDone();
+      }
       }
     }
   };
+  isGameDone() {
+    console.log("ans", this.state.answers);
+    console.log("found",this.state.foundWords);
+    // Check if we've found all targets.
+    if(this.state.answers.sort().join(',')=== this.state.foundWords.sort().join(',')){
+      console.log("YUS",);
+      //var finish = new Date().getTime();
+    //var t = finish -this.state.time;
+    this.state.foundWords.length =0;
+     this.setState({gameIndex: this.state.gameIndex+1,
+                    answers:[],
+                    //foundWords:f,
+                    tiles:[],
+                    score:0,
+                    fadeIn:false,
+    }, () => {
+      console.log(this.state.gameIndex);
+      this.getMapFromServer(this.state.gameIndex);
+    });
+       //elapsedTime: t,
+    //                   warning: true,  
+    //                               })
+    // setTimeout(function() {
+    //   this.getMapFromServer(this.state.puzzleIndex +1)
+    // }.bind(this), 2500);
+   // this.componentDidMount();
+  }
+  else console.log("NAH");
+      //else alert('not a match');
+    
+  }
   render() {
-    console.log("TOUTOU", this.state.tiles);
-    console.log("TOUTOU2", this.state.answers);
     return (
       <div>
-        <h1>LEVEL 1</h1>
+        <h1>LEVEL {this.state.gameIndex}</h1>
         <h4> {this.state.answers.length} WORD COMBINATIONS</h4>
         <h4>Score: {this.state.score}</h4>
         <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
