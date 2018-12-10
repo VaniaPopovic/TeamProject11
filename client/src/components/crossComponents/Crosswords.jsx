@@ -11,6 +11,7 @@ class Crosswords extends Component {
     this.state = {
       warning: false,
       warningFinish: false,
+      passLevel: false,
       time: new Date().getTime(),
       elapsedTime: 0,
       level: 0,
@@ -29,11 +30,16 @@ class Crosswords extends Component {
     this.finishAndNextLevel = this.finishAndNextLevel.bind(this);
     this.confirmNextLevel = this.confirmNextLevel.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
+    this.togglePassLevel = this.togglePassLevel.bind(this);
   }
-
+  togglePassLevel(){
+    this.setState({
+      passLevel: !this.state.passLevel
+    });
+  }
   toggleInfo() {
     this.setState({
-      info: !this.state.info,
+      info: !this.state.info
     });
   }
   //设置warning开关 ture或者false，调用这个方法来启动warning弹出框
@@ -101,7 +107,12 @@ class Crosswords extends Component {
     let finish = new Date().getTime();
     let t = finish - this.state.time;
     this.setState({ elapsedTime: t });
-    this.toggleWarningFinish();
+    if(this.state.level === 1){
+      this.togglePassLevel();
+    }
+    else {
+      this.toggleWarningFinish();
+    }
   }
 
   //以下为JSX语法，在JSX中用{}来包含JS语句
@@ -120,6 +131,14 @@ class Crosswords extends Component {
             onClick={this.toggleWarning}
           >
             Next level
+          </button>
+
+          <button
+            type="button"
+            className={"btn btn-success"}
+            onClick={this.finishAndNextLevel}
+          >
+            pass level
           </button>
         </div>
 
@@ -142,7 +161,7 @@ class Crosswords extends Component {
           totalCorrect={this.state.totalCorrect}
           finishAndNextLevel={this.finishAndNextLevel}
         />
-
+        {/*跳到下一关dialog*/}
         <Modal
           isOpen={this.state.warning}
           toggle={this.toggleWarning}
@@ -159,7 +178,7 @@ class Crosswords extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
+        {/*完成本关dialog*/}
         <Modal
           isOpen={this.state.warningFinish}
           toggle={this.toggleWarningFinish}
@@ -184,6 +203,7 @@ class Crosswords extends Component {
             </Button>
           </ModalFooter>
         </Modal>
+        {/*欢迎界面dialog*/}
         <Modal
           isOpen={this.state.info}
           toggle={this.toggleInfo}
@@ -205,6 +225,25 @@ class Crosswords extends Component {
             <Button color="primary" onClick={this.toggleInfo}>
               I am ready!
             </Button>{" "}
+          </ModalFooter>
+        </Modal>
+        {/*通关dialog*/}
+        <Modal
+          isOpen={this.state.passLevel}
+          toggle={this.togglePassLevel}
+          className={"modal-warning " + this.props.className}
+        >
+          <ModalHeader toggle={this.togglePassLevel}>
+            Congratulations!!!!!
+          </ModalHeader>
+          <ModalBody>
+            You have passed all the levels!!! Excellent!!!<br/>
+            <img src="https://media.giphy.com/media/fnYUD6bWKufGDjRAYC/giphy.gif" />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="success" onClick={this.togglePassLevel}>
+              confirm
+            </Button>
           </ModalFooter>
         </Modal>
       </div>
