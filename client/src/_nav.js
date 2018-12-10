@@ -20,7 +20,7 @@ export default {
     },
     {
       name: 'Word Find',
-      url: '/dashboard',
+      url: '/wordfind',
       icon: 'icon-game-controller',
       attributes: { },
     },

@@ -5,24 +5,29 @@ import puzzleData from "DATA.json";
 import PuzzleGenerator from "../../components/PuzzleGenerator";
 import axios from "axios";
 
-class Dashboard extends Component {
+class WordFind extends Component {
   constructor(props) {
     super(props);
 
     // TODO: Load data asynchronously.
     this.state = {
-      puzzles: puzzleData.puzzles,
-      /*puzzles: [{
+      //puzzles: puzzleData.puzzles,
+      puzzles: [{
         level: 0,
         difficulty: " ",
         answers: "",
         grid: []
       }],
-      */
+
       info: true
     };
     this.toggleInfo = this.toggleInfo.bind(this);
     this.postMap = this.postMap.bind(this);
+  }
+
+  componentDidMount() {
+    this.getMapFromServer();
+
   }
 
   toggleInfo() {
@@ -72,9 +77,9 @@ class Dashboard extends Component {
           <Col xs="12" sm="12" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
-                <button onClick={this.postMap}>post map</button>
-                <Game data={this.state.puzzles}/>
-                <PuzzleGenerator/>
+                {/*<button onClick={this.postMap}>post map</button> */}
+                <Game />
+            
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: "70px" }}/>
             </Card>
@@ -102,4 +107,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default WordFind;

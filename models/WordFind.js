@@ -1,16 +1,13 @@
 var mongoose = require("mongoose");
 
 var WordFindSchema = new mongoose.Schema({
-
-  puzzles: [{
     level: Number,
     difficulty: String,
     answers: [String],
     grid: [
       [String]
     ]
-  }
-  ]
+  
 
 }, { collection: "wordFindMap" });
 

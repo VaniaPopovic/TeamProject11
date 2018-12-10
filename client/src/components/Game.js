@@ -1,24 +1,54 @@
 import React, { Component } from "react";
 import BoxGrid from "./BoxGrid";
 import WordList from "./WordList";
+import axios from "axios";
 import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.data,
-      puzzleIndex: 0,
+      puzzleIndex: 1,
       time: new Date().getTime(),
       elapsedTime: 0,
-      squares: this.getSquares(props.data[0].grid),
-      answers: this.getAnswers(props.data[0].answers),
+      squares: [],
+      answers: [],
       warning: false,
       timeTaken: "",
       target: {}
     };
+    
     this.toggleWarning = this.toggleWarning.bind(this);
   }
+   //save data to word find
+  componentDidMount(){
+    console.log("mounting");
+    this.getMapFromServer(this.state.puzzleIndex);
+  }
+  //get map from database
+  getMapFromServer(lvl) {
+    axios
+      .get("/api/wordFind/get",{
+        params: {
+          level: lvl
+        }
+      })
+      .then(response => {
+        //print  console() you can not add "string" in console ,just print it alone
+        console.log("RESPONSE",response);
+        this.setNextPuzzle(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
+  // componentDidMount() {
+  //   this.getMapFromServer(this.puzzleIndex);
+
+  // }
+
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
     //if(this.isPuzzleDone()) {
@@ -30,16 +60,14 @@ class Game extends Component {
       warning: !this.state.warning,
     });
   }
-  setNextPuzzle() {
-    const index = (this.state.puzzleIndex + 1) % this.state.data.length;
-    const data = this.state.data[index];
+  setNextPuzzle(data) {
+    //const index = (this.state.puzzleIndex + 1) % this.state.data.length;
     //console.log(data);
     this.setState({
-      puzzleIndex: index,
+      puzzleIndex: this.state.puzzleIndex++,
       time: new Date().getTime(),
       squares: this.getSquares(data.grid),
       answers: this.getAnswers(data.answers),
-      warning: true,
       target: {}
     });
   }
@@ -52,9 +80,11 @@ class Game extends Component {
     }
     var finish = new Date().getTime();
     var t = finish -this.state.time;
-    this.setState({elapsedTime: t})
+    this.setState({elapsedTime: t,
+                      warning: true,  
+                                  })
     setTimeout(function() {
-      this.setNextPuzzle();
+      this.getMapFromServer(this.state.puzzleIndex +1)
     }.bind(this), 2500);
   }
   getAnswers(squareData) {
@@ -73,12 +103,12 @@ class Game extends Component {
   }
   getSquares(squareData) {
     var squares = [];
-    console.log("sq", squareData);
+    //console.log("sq", squareData);
     for (var r = 0; r < squareData.length; r++) {
       squares.push([]);
       for (var c = 0; c < squareData[r].length; c++) {
         var str = squareData[r][c].split("");
-        console.log(str);
+      //  console.log(str);
         for (var g = 0; g < str.length; g++) {
           squares[r].push({
             value: str[g],
@@ -104,10 +134,10 @@ class Game extends Component {
       for (var i = 0; i < selected.length; i++) {
         strr =
           strr + this.state.squares[selected[i].row][selected[i].col].value;
-        console.log(this.state.squares[selected[i].row][selected[i].col]);
+        //console.log(this.state.squares[selected[i].row][selected[i].col]);
       }
-      console.log(strr);
-      console.log("Answers Here", this.state.answers);
+     // console.log(strr);
+     // console.log("Answers Here", this.state.answers);
       for (var i = 0; i < this.state.answers.length; i++) {
         //TODO: BETTER WAY OF CHECKING THIS
 
@@ -131,9 +161,8 @@ class Game extends Component {
     }
    // console.log("Target", revealedTarget);
   }
-  onSave(totalTime){
-   // console.log("TIME TAKEN ", totalTime)
-  }
+ 
+  
   render() {
     var answers = this.state.answers;
     var time = Date;
@@ -141,7 +170,7 @@ class Game extends Component {
     //console.log("TIME",this.state.time);
     return (
       <div className="game-container">
-      <h1>LEVEL {this.state.puzzleIndex +1}</h1>
+      <h1>LEVEL {this.state.puzzleIndex}</h1>
         <WordList answers={answers} />
         <div className="game-board">
           <BoxGrid
