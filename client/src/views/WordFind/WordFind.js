@@ -1,5 +1,15 @@
 import React, { Component, lazy, Suspense } from "react";
-import { Card, CardBody, Col, Row, Modal, ModalBody, ModalFooter, ModalHeader, Button } from "reactstrap";
+import {
+  Card,
+  CardBody,
+  Col,
+  Row,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Button
+} from "reactstrap";
 import Game from "components/Game";
 import puzzleData from "DATA.json";
 import PuzzleGenerator from "../../components/PuzzleGenerator";
@@ -12,12 +22,14 @@ class WordFind extends Component {
     // TODO: Load data asynchronously.
     this.state = {
       //puzzles: puzzleData.puzzles,
-      puzzles: [{
-        level: 0,
-        difficulty: " ",
-        answers: "",
-        grid: []
-      }],
+      puzzles: [
+        {
+          level: 0,
+          difficulty: " ",
+          answers: "",
+          grid: []
+        }
+      ],
 
       info: true
     };
@@ -27,7 +39,6 @@ class WordFind extends Component {
 
   componentDidMount() {
     this.getMapFromServer();
-
   }
 
   toggleInfo() {
@@ -35,7 +46,6 @@ class WordFind extends Component {
       info: !this.state.info
     });
   }
-
 
   loading = () => (
     <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -64,10 +74,8 @@ class WordFind extends Component {
       });
   }
 
-
   componentDidMount() {
     this.getMapFromServer();
-
   }
 
   render() {
@@ -79,9 +87,8 @@ class WordFind extends Component {
               <CardBody className="pb-0">
                 {/*<button onClick={this.postMap}>post map</button> */}
                 <Game />
-            
               </CardBody>
-              <div className="chart-wrapper mx-3" style={{ height: "70px" }}/>
+              <div className="chart-wrapper mx-3" style={{ height: "70px" }} />
             </Card>
           </Col>
         </Row>
@@ -94,7 +101,14 @@ class WordFind extends Component {
             Welcome to the Word-Find game!
           </ModalHeader>
           <ModalBody>
-
+            There are 3 difficulties and 10 levels in each difficulty.
+            <br />
+            You should find the words in the boxes as shows below.
+            <br />
+            When you find a word, you can drag from start of the word to the
+            end.
+            <br />
+            Good luck!
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleInfo}>

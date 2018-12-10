@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import ReactDOM from "react-dom";
 import axios from "axios";
 import {
-  Modal, ModalBody, ModalFooter, ModalHeader,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Button,
   Card,
   CardBody,
@@ -63,7 +65,7 @@ class Login extends Component {
   };
 
   render() {
-    const { username, password, message } = this.state;
+    //const { username, password, message } = this.state;
     return (
       <div className="app flex-row align-items-center">
         <Container>
@@ -130,8 +132,8 @@ class Login extends Component {
                     <div>
                       <h2>Sign up</h2>
                       <p>
-                        Welcome to Word Games, if you did not have an account, please
-                        register below.
+                        Welcome to Word Games, if you did not have an account,
+                        please register below.
                       </p>
                       <Link to="/register">
                         <Button
@@ -156,12 +158,8 @@ class Login extends Component {
           toggle={this.toggleInfo}
           className={"modal-info " + this.props.className}
         >
-          <ModalHeader toggle={this.toggleInfo}>
-            Warning!
-          </ModalHeader>
-          <ModalBody>
-            {this.state.message}
-          </ModalBody>
+          <ModalHeader toggle={this.toggleInfo}>Warning!</ModalHeader>
+          <ModalBody>{this.state.message}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleInfo}>
               confirm

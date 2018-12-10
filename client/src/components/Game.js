@@ -2,47 +2,58 @@ import React, { Component } from "react";
 import BoxGrid from "./BoxGrid";
 import WordList from "./WordList";
 import axios from "axios";
-import { Button, Card, CardBody, CardHeader, Col, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import {
+  Button,
+  Col,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader
+} from "reactstrap";
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
       puzzleIndex: 1,
+      level: 1,
+      difficulty: "",
       time: new Date().getTime(),
       elapsedTime: 0,
       squares: [],
       answers: [],
       warning: false,
+      warningFinish: false,
       timeTaken: "",
       target: {}
     };
-    
+
     this.toggleWarning = this.toggleWarning.bind(this);
+    this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
+    this.skipLevel = this.skipLevel.bind(this);
   }
-   //save data to word find
-  componentDidMount(){
+  //save data to word find
+  componentDidMount() {
     console.log("mounting");
     this.getMapFromServer(this.state.puzzleIndex);
   }
   //get map from database
   getMapFromServer(lvl) {
     axios
-      .get("/api/wordFind/get",{
+      .get("/api/wordFind/get", {
         params: {
-          level: lvl
+          puzzleIndex: lvl
         }
       })
       .then(response => {
         //print  console() you can not add "string" in console ,just print it alone
-        console.log("RESPONSE",response);
+        console.log("RESPONSE", response);
         this.setNextPuzzle(response.data);
       })
       .catch(error => {
         console.log(error);
       });
   }
-
 
   // componentDidMount() {
   //   this.getMapFromServer(this.puzzleIndex);
@@ -53,39 +64,52 @@ class Game extends Component {
     // Typical usage (don't forget to compare props):
     //if(this.isPuzzleDone()) {
     //console.log("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-   // }
-    }
+    // }
+  }
   toggleWarning() {
     this.setState({
-      warning: !this.state.warning,
+      warning: !this.state.warning
     });
+  }
+  toggleWarningFinish() {
+    this.setState({
+      warningFinish: !this.state.warningFinish
+    });
+  }
+  //skip this level
+  skipLevel() {
+    this.toggleWarning();
+    this.getMapFromServer(this.state.puzzleIndex + 1);
   }
   setNextPuzzle(data) {
     //const index = (this.state.puzzleIndex + 1) % this.state.data.length;
     //console.log(data);
     this.setState({
-      puzzleIndex: this.state.puzzleIndex++,
+      puzzleIndex: data.puzzleIndex,
       time: new Date().getTime(),
       squares: this.getSquares(data.grid),
       answers: this.getAnswers(data.answers),
+      level: data.level,
+      difficulty: data.difficulty,
       target: {}
     });
   }
   isPuzzleDone() {
     // Check if we've found all targets.
-    for(let answer of this.state.answers) {
-      if(!answer.isFound) {
+    for (let answer of this.state.answers) {
+      if (!answer.isFound) {
         return;
       }
     }
     var finish = new Date().getTime();
-    var t = finish -this.state.time;
-    this.setState({elapsedTime: t,
-                      warning: true,  
-                                  })
-    setTimeout(function() {
-      this.getMapFromServer(this.state.puzzleIndex +1)
-    }.bind(this), 2500);
+    var t = finish - this.state.time;
+    this.setState({ elapsedTime: t / 1000, warningFinish: true });
+    setTimeout(
+      function() {
+        this.getMapFromServer(this.state.puzzleIndex + 1);
+      }.bind(this),
+      2500
+    );
   }
   getAnswers(squareData) {
     var answers = [];
@@ -108,7 +132,7 @@ class Game extends Component {
       squares.push([]);
       for (var c = 0; c < squareData[r].length; c++) {
         var str = squareData[r][c].split("");
-      //  console.log(str);
+        //  console.log(str);
         for (var g = 0; g < str.length; g++) {
           squares[r].push({
             value: str[g],
@@ -116,7 +140,7 @@ class Game extends Component {
           });
         }
       }
-     // console.log("state here", this.state);
+      // console.log("state here", this.state);
     }
 
     return squares;
@@ -136,8 +160,8 @@ class Game extends Component {
           strr + this.state.squares[selected[i].row][selected[i].col].value;
         //console.log(this.state.squares[selected[i].row][selected[i].col]);
       }
-     // console.log(strr);
-     // console.log("Answers Here", this.state.answers);
+      // console.log(strr);
+      // console.log("Answers Here", this.state.answers);
       for (var i = 0; i < this.state.answers.length; i++) {
         //TODO: BETTER WAY OF CHECKING THIS
 
@@ -159,44 +183,91 @@ class Game extends Component {
         // })
       }
     }
-   // console.log("Target", revealedTarget);
+    // console.log("Target", revealedTarget);
   }
- 
-  
+  //向数据库里存地图
+  postMap() {
+    axios.post("/api/wordFind/post").then(res => {
+      alert("post succesful");
+    });
+  }
+
   render() {
     var answers = this.state.answers;
-    var time = Date;
+    //var time = Date;
     //console.log("render", answers);
     //console.log("TIME",this.state.time);
     return (
       <div className="game-container">
-      <h1>LEVEL {this.state.puzzleIndex}</h1>
-      <Col xs="8">
-        <div className="">
-          <BoxGrid
-            squares={this.state.squares}
-            onMakeSelection={this.handleMakeSelection.bind(this)}
-          />
-           </div>
-          </Col>
-          <Col xs="4">
+        <h1>DIFFICULTY {this.state.difficulty}</h1>
+        <h1>LEVEL {this.state.level}</h1>
+
+        <div>
+          {/*<button onClick={this.postMap}>post map</button>*/}
+          <button
+            type="button"
+            className={"btn btn-success"}
+            onClick={this.toggleWarning}
+          >
+            Skip level
+          </button>
+        </div>
+        <Col xs="8">
+          <div className="">
+            <BoxGrid
+              squares={this.state.squares}
+              onMakeSelection={this.handleMakeSelection.bind(this)}
+            />
+          </div>
+        </Col>
+        <Col xs="4">
           <WordList answers={answers} />
-          </Col>
-       
-                <Modal isOpen={this.state.warning} toggle={this.toggleWarning}
-                       className={'modal-warning ' + this.props.className}>
-                  <ModalHeader toggle={this.toggleWarning}>Modal title</ModalHeader>
-                  <ModalBody>
-                    TIME TAKEN :{this.state.elapsedTime} MILISECONDS
-                  </ModalBody>  
-                  <ModalFooter>
-                    <Button color="warning" onClick={this.toggleWarning}>Do Something</Button>{' '}
-                    <Button color="secondary" onClick={this.toggleWarning}>Cancel</Button>
-                  </ModalFooter>
-                </Modal>
+        </Col>
+        {/*finish this level*/}
+        <Modal
+          isOpen={this.state.warningFinish}
+          toggle={this.toggleWarningFinish}
+          className={"modal-info " + this.props.className}
+        >
+          <ModalHeader toggle={this.toggleWarningFinish}>
+            Congratulations!
+          </ModalHeader>
+          <ModalBody>
+            You have finished this level! Time taken : {this.state.elapsedTime}{" "}
+            seconds.
+            <br />
+            Now you can go to the next level.
+          </ModalBody>
+
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleWarningFinish}>
+              Confirm
+            </Button>
+          </ModalFooter>
+        </Modal>
+        {/*Skip to next level*/}
+        <Modal
+          isOpen={this.state.warning}
+          toggle={this.toggleWarning}
+          className={"modal-info " + this.props.className}
+        >
+          <ModalHeader toggle={this.toggleWarning}>Warning!</ModalHeader>
+          <ModalBody>
+            If you skip this level, you will not get full score of this level.
+            <br />
+            Do you want to skip this level?
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.skipLevel}>
+              Confirm
+            </Button>
+            <Button color="secondary" onClick={this.toggleWarning}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
-    
   }
 }
 

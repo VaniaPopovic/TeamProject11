@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import {Button} from "reactstrap";
+import React from "react";
+import { Button } from "reactstrap";
 
 function Box({ value, pos, selected, revealed, events }) {
   const classes = ["square"];

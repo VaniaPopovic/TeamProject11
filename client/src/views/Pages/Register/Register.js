@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {
-  Modal, ModalBody, ModalFooter, ModalHeader,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Button,
   Card,
   CardBody,
-  CardFooter,
   Col,
   Container,
   Form,
@@ -15,7 +17,6 @@ import {
   InputGroupText,
   Row
 } from "reactstrap";
-
 
 class Register extends Component {
   constructor() {
@@ -38,45 +39,45 @@ class Register extends Component {
     });
   }
 
-  toggleSucc(){
+  toggleSucc() {
     this.setState({
       success: !this.state.success
     });
   }
-  confirmTosuccess(){
+  confirmTosuccess() {
     this.toggleSucc();
     this.props.history.push("/login");
-
   }
   handleChange = prop => event => {
     console.log("this called");
     this.setState({ [prop]: event.target.value });
   };
-  onChange = (e) => {
+  onChange = e => {
     const state = this.state;
     state[e.target.name] = e.target.value;
     this.setState(state);
   };
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
 
     const { username, password } = this.state;
 
-    axios.post("/api/auth/register", { username, password })
-      .then((result) => {
-        //console.log(result.data);
-        if (result.data.success) {// if create successful
-          this.setState({ msg: result.data.msg });
-          this.toggleSucc();
-          //this.props.history.push("/login");
-        }
-        else {
-          //alert(result.data.msg + " Please change the username and try again.");
-          this.setState({ msg: result.data.msg + " Please change the username and try again." });
-          this.toggleInfo();
-        }
-      });
+    axios.post("/api/auth/register", { username, password }).then(result => {
+      //console.log(result.data);
+      if (result.data.success) {
+        // if create successful
+        this.setState({ msg: result.data.msg });
+        this.toggleSucc();
+        //this.props.history.push("/login");
+      } else {
+        //alert(result.data.msg + " Please change the username and try again.");
+        this.setState({
+          msg: result.data.msg + " Please change the username and try again."
+        });
+        this.toggleInfo();
+      }
+    });
   };
 
   render() {
@@ -107,7 +108,7 @@ class Register extends Component {
                     <InputGroup className="mb-3">
                       <InputGroupAddon addonType="prepend">
                         <InputGroupText>
-                          <i className="icon-lock"/>
+                          <i className="icon-lock" />
                         </InputGroupText>
                       </InputGroupAddon>
                       <Input
@@ -142,12 +143,8 @@ class Register extends Component {
           toggle={this.toggleInfo}
           className={"modal-info " + this.props.className}
         >
-          <ModalHeader toggle={this.toggleInfo}>
-            Warning!
-          </ModalHeader>
-          <ModalBody>
-            {this.state.msg}
-          </ModalBody>
+          <ModalHeader toggle={this.toggleInfo}>Warning!</ModalHeader>
+          <ModalBody>{this.state.msg}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggleInfo}>
               confirm
@@ -160,12 +157,8 @@ class Register extends Component {
           toggle={this.toggleSucc}
           className={"modal-info " + this.props.className}
         >
-          <ModalHeader toggle={this.toggleSucc}>
-            Congratulations!
-          </ModalHeader>
-          <ModalBody>
-            {this.state.msg}
-          </ModalBody>
+          <ModalHeader toggle={this.toggleSucc}>Congratulations!</ModalHeader>
+          <ModalBody>{this.state.msg}</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.confirmTosuccess}>
               confirm

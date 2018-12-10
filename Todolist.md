@@ -14,10 +14,8 @@ Vania:
 2. scores saved in user infromation
 3. font open Dyslexic
 
-
-
-Done:
-1. icon
-2. welcome page in every game
-3. mongodb cloud create
-4. finish congratulations
+Done:  
+~~1. icon~~  
+~~2. welcome page in every game~~  
+~~3. mongodb cloud create~~  
+~~4. finish congratulations~~

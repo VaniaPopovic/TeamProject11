@@ -6,8 +6,7 @@ class Boxes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0
-
+      count: 1
     };
     this.handleCount = this.handleCount.bind(this);
     //this.handleCorrectGuess = this.handleCorrectGuess.bind(this);
@@ -57,19 +56,16 @@ class Boxes extends React.Component {
     }
   }
 
-//处理输入正确的结果并计数，当达到数目则通关,totalCorrect作为标志看是否答对所有
+  //处理输入正确的结果并计数，当达到数目则通关,totalCorrect作为标志看是否答对所有
   handleCount() {
-    this.state.count++;
+    this.setState({ count: this.state.count + 1 });
     console.log("input correct number" + this.state.count);
     console.log("total:" + this.props.totalCorrect);
     if (this.state.count === this.props.totalCorrect) {
-
       this.props.finishAndNextLevel();
     }
-
-
   }
-/*
+  /*
   componentDidUpdate(prevProps, prevState) {
     // 得到了数据，操的，要用IF条件，这里是表示如果数据更新则执行setstate
     console.log("sadfsdf"+this.props.totalCorrect);
@@ -84,24 +80,22 @@ class Boxes extends React.Component {
   }
 */
 
-
-
   //如果要向组件传递参数使用this.props
   render() {
     //console.log("render",this.props.key);
-    let className = 'boxes';
-    if(this.props.level === 8){
-      className = 'boxes8'
+    let className = "boxes";
+    if (this.props.level === 8) {
+      className = "boxes8";
     }
-    if(this.props.level === 9){
-      className = 'boxes8'
+    if (this.props.level === 9) {
+      className = "boxes8";
     }
-    if(this.props.level === 10){
-      className = 'boxes10'
+    if (this.props.level === 10) {
+      className = "boxes10";
     }
     //className指定在CSS中的引用名称
     return (
-      <div className={className} >
+      <div className={className}>
         {this.props.grid.map(box => (
           <Box
             key={box.id}
@@ -112,12 +106,8 @@ class Boxes extends React.Component {
             number={box.number}
             clueDown={box.clue_down}
             handleCount={this.handleCount}
-
           />
-
         ))}
-
-
       </div>
     );
   }

@@ -1,16 +1,14 @@
-import React, { Component, lazy, Suspense } from "react";
+import React, { Component } from "react";
 import { Card, CardBody, Col, Row } from "reactstrap";
-import Crosswords from '../../components/crossComponents/Crosswords';
-import './crosswords.css'
+import Crosswords from "../../components/crossComponents/Crosswords";
+import "./crosswords.css";
 
 class CrosswordsPage extends Component {
   constructor(props) {
     super(props);
 
     // TODO: Load data asynchronously.
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   loading = () => (
@@ -25,7 +23,6 @@ class CrosswordsPage extends Component {
             <Card className="text-white bg-info">
               <CardBody className="pb-0">
                 <Crosswords />
-
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: "70px" }} />
             </Card>
