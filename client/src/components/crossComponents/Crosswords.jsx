@@ -18,10 +18,10 @@ class Crosswords extends Component {
       totalCorrect: 0,
       clues: {
         across: [],
-        down: [],
+        down: []
       },
       grid: [],
-      info: true,
+      info: true
     };
     this.postMap = this.postMap.bind(this);
     this.changeMap = this.changeMap.bind(this);
@@ -32,28 +32,33 @@ class Crosswords extends Component {
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePassLevel = this.togglePassLevel.bind(this);
   }
-  togglePassLevel(){
+
+  togglePassLevel() {
     this.setState({
       passLevel: !this.state.passLevel
     });
   }
+
   toggleInfo() {
     this.setState({
       info: !this.state.info
     });
   }
+
   //设置warning开关 ture或者false，调用这个方法来启动warning弹出框
   toggleWarning() {
     this.setState({
       warning: !this.state.warning
     });
   }
+
   //设置warningFinish开关 ture或者false，调用这个方法来启动warningFinish弹出框
   toggleWarningFinish() {
     this.setState({
       warningFinish: !this.state.warningFinish
     });
   }
+
   //从数据库得到数据并放入state中
   componentDidMount() {
     this.getMapFromServer(1);
@@ -94,6 +99,7 @@ class Crosswords extends Component {
         console.log(error);
       });
   }
+
   //确认进入下一关
   confirmNextLevel() {
     this.setState({
@@ -102,12 +108,13 @@ class Crosswords extends Component {
     });
     this.changeMap();
   }
+
   //完成本关进入下一关
   finishAndNextLevel() {
     let finish = new Date().getTime();
     let t = finish - this.state.time;
-    this.setState({ elapsedTime: t });
-    if(this.state.level === 1){
+    this.setState({ elapsedTime: t/1000 });
+    if (this.state.level === 10) {
       this.togglePassLevel();
     }
     else {
@@ -128,30 +135,21 @@ class Crosswords extends Component {
           <button
             type="button"
             className={"btn btn-success"}
-            onClick={this.toggleWarning}
-          >
-            Next level
+            onClick={this.toggleWarning}>Skip level
           </button>
 
-          <button
-            type="button"
-            className={"btn btn-success"}
-            onClick={this.finishAndNextLevel}
-          >
-            pass level
-          </button>
         </div>
 
         <div className="clue-lists">
           <div>
             <h3>Across</h3>
             {/*属性小写，把clues属性传到下一个组件，在Clues组件中用this.props.clues来调用传入的参数*/}
-            <Clues clues={this.state.clues.across} />
+            <Clues clues={this.state.clues.across}/>
           </div>
           <div>
             <h3>Down</h3>
             {/*复用Clues组件，把要传入的参数放到clues中*/}
-            <Clues clues={this.state.clues.down} />
+            <Clues clues={this.state.clues.down}/>
           </div>
         </div>
 
@@ -168,7 +166,9 @@ class Crosswords extends Component {
           className={"modal-info " + this.props.className}
         >
           <ModalHeader toggle={this.toggleWarning}>Warning!</ModalHeader>
-          <ModalBody>Do you want to skip this level?</ModalBody>
+          <ModalBody>
+            If you skip this level, you will not get full score of this level.<br/>
+            Do you want to skip this level?</ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.confirmNextLevel}>
               Confirm
@@ -189,8 +189,8 @@ class Crosswords extends Component {
           </ModalHeader>
           <ModalBody>
             You have finished this level! Time taken :{" "}
-            {this.state.elapsedTime / 1000} seconds.
-            <br />
+            {this.state.elapsedTime} seconds.
+            <br/>
             Confirm to go to the next level.
           </ModalBody>
 
@@ -213,12 +213,12 @@ class Crosswords extends Component {
             Welcome to the Crosswords game!
           </ModalHeader>
           <ModalBody>
-            There are 10 levels with different clues of words in each level.<br />
+            There are 10 levels with different clues of words in each level.<br/>
             You should guess the words and put them into the blank.
             If your input is right, the blank will turn green.
-            <br />
+            <br/>
             For each word, there is an anwser but I wish you can guess the word by yourself.
-            <br />
+            <br/>
             Good luck!
           </ModalBody>
           <ModalFooter>
@@ -238,7 +238,7 @@ class Crosswords extends Component {
           </ModalHeader>
           <ModalBody>
             You have passed all the levels!!! Excellent!!!<br/>
-            <img src="https://media.giphy.com/media/fnYUD6bWKufGDjRAYC/giphy.gif" />
+            <img src="https://media.giphy.com/media/fnYUD6bWKufGDjRAYC/giphy.gif"/>
           </ModalBody>
           <ModalFooter>
             <Button color="success" onClick={this.togglePassLevel}>
