@@ -17,7 +17,10 @@ class Box extends React.Component {
   //检测方框填入字的改变
   handleChange(event) {
     //当输入字母正确,把字母都转成小写
-    if (event.target.value.toLowerCase() === this.props.letter && !this.state.isCorrect) {
+    if (
+      event.target.value.toLowerCase() === this.props.letter &&
+      !this.state.isCorrect
+    ) {
       //设置state
       this.setState({ value: event.target.value, isCorrect: true });
 
@@ -35,17 +38,16 @@ class Box extends React.Component {
           number: this.props.clueDown
         });
       }
+
+      this.props.onCorrect(cluesToUpdate);
       this.props.handleCount();
-      // this.props.onCorrect(cluesToUpdate);
     }
     //当输入字母不正确,这个方法不管用
     else if (
-
       this.state.isCorrect &&
       this.state.value &&
       event.target.value !== this.props.letter
     ) {
-
       this.setState({
         value: event.target.value,
         isCorrect: false
@@ -55,11 +57,9 @@ class Box extends React.Component {
     }
   }
 
-
-
   render() {
     if (!this.props.letter) {
-      return <div className="box blank"/>;
+      return <div className="box blank" />;
     }
     if (this.props.number) {
       return (

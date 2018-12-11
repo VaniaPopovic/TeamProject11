@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var WordFind = require("../models/WordFind");
 
+
 router.get("/get", function(req, res) {
   //根据条件查找document,find则res为一个list，findOne则返回是一个对象
   WordFind.findOne(
@@ -21,21 +22,16 @@ router.get("/get", function(req, res) {
 //POST route for updating data
 router.post("/post", function(req, res, next) {
   //level 9
+  console.log(req.body.difficulty);
+  console.log(req.body.level);
+  console.log(req.body.answers);
+  console.log(req.body.grid);
   const mapData = new WordFind({
     puzzleIndex: 3,
-    level: 3,
-    difficulty: "MIDDLE",
-    answers: ["cat", "dog"],
-    grid: [
-      ["cattless"],
-      ["dogdefgh"],
-      ["obcdcath"],
-      ["gogsefgh"],
-      ["abcdefgh"],
-      ["abcdefgh"],
-      ["abcdefgh"],
-      ["abcdefgh"]
-    ]
+    level: req.body.level,
+    difficulty: req.body.difficulty,
+    answers: req.body.answers,
+    grid: req.body.grid
   });
 
   //把数据存入到数据库中

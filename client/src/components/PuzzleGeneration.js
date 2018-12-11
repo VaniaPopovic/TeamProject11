@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Card, CardHeader, CardBody, Input, CardFooter } from "reactstrap";
 import BoxGrid from "./BoxGrid";
+import axios from 'axios';
 
 class PuzzleGeneration extends React.Component {
   constructor(props) {
@@ -63,6 +64,18 @@ class PuzzleGeneration extends React.Component {
       "Y",
       "Z"
     ];
+    this.postMap = this.postMap.bind(this);
+  }
+  postMap(obj) {
+    //alert("postingobject");
+    //console.log(obj);
+    axios.post("/api/wordFind/post", {level:obj.level, 
+    difficulty:obj.difficulty,
+    answers:obj.answers,
+    grid: obj.grid
+    }).then(res => {
+      alert("post succesful");
+    });
   }
   matrix(rows, cols, defaultValue) {
     var arr = [];
@@ -316,6 +329,7 @@ class PuzzleGeneration extends React.Component {
       <div>
         <p>{gr}</p>
         <BoxGrid squares={sq} />
+        <button onClick={() => { this.postMap(obj) }}>POST JSON</button>
       </div>
     );
   }
