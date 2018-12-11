@@ -40,13 +40,13 @@ class Scrabble extends Component {
       fadeIn: false,
       info: true,
       warning: false,
-      warningFinish: false
+      warningFinish: false,
     };
-
+    this.toggleWarning = this.toggleWarning.bind(this);
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
     this.resetTiles = this.resetTiles.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
-    this.toggleWarning = this.toggleWarning.bind(this);
+    this.skipLevel = this.skipLevel.bind(this);
     this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
   }
 
@@ -68,7 +68,7 @@ class Scrabble extends Component {
         this.setState({
           level: response.data.level,
           tiles: response.data.grid,
-          answers: response.data.answers
+          answers: response.data.answers,
         });
       })
       .catch(error => {
@@ -77,7 +77,7 @@ class Scrabble extends Component {
   }
   toggleInfo() {
     this.setState({
-      info: !this.state.info
+      info: !this.state.info,
     });
   }
   //skip this level
@@ -88,7 +88,7 @@ class Scrabble extends Component {
   }
   toggleWarning() {
     this.setState({
-      warning: !this.state.warning
+      warning: !this.state.warning,
     });
   }
   toggleWarningFinish() {

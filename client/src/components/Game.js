@@ -4,6 +4,7 @@ import WordList from "./WordList";
 import axios from "axios";
 import {
   Button,
+  Row,
   Col,
   Modal,
   ModalBody,
@@ -46,7 +47,6 @@ class Game extends Component {
         }
       })
       .then(response => {
-        //print  console() you can not add "string" in console ,just print it alone
         console.log("RESPONSE", response);
         this.setNextPuzzle(response.data);
       })
@@ -54,11 +54,6 @@ class Game extends Component {
         console.log(error);
       });
   }
-
-  // componentDidMount() {
-  //   this.getMapFromServer(this.puzzleIndex);
-
-  // }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
@@ -113,26 +108,20 @@ class Game extends Component {
   }
   getAnswers(squareData) {
     var answers = [];
-
-    //console.log("SQUARE DATA", squareData);
-    //answers.push([]);
     for (var r = 0; r < squareData.length; r++) {
       answers.push({
         value: squareData[r],
         isFound: false
       });
     }
-    //this.state.answers= answers;
     return answers;
   }
   getSquares(squareData) {
     var squares = [];
-    //console.log("sq", squareData);
     for (var r = 0; r < squareData.length; r++) {
       squares.push([]);
       for (var c = 0; c < squareData[r].length; c++) {
         var str = squareData[r][c].split("");
-        //  console.log(str);
         for (var g = 0; g < str.length; g++) {
           squares[r].push({
             value: str[g],
@@ -140,7 +129,6 @@ class Game extends Component {
           });
         }
       }
-      // console.log("state here", this.state);
     }
 
     return squares;
@@ -176,14 +164,8 @@ class Game extends Component {
           this.setState({ answers: n });
           this.isPuzzleDone();
         }
-
-        // // Update state with revealed squares.
-        // this.setState({
-        //   squares: squares
-        // })
       }
     }
-    // console.log("Target", revealedTarget);
   }
   //向数据库里存地图
   postMap() {
@@ -193,14 +175,11 @@ class Game extends Component {
   }
 
   render() {
-    var answers = this.state.answers;
-    //var time = Date;
-    //console.log("render", answers);
-    //console.log("TIME",this.state.time);
     return (
       <div className="game-container">
-        <h1>DIFFICULTY {this.state.difficulty}</h1>
+       
         <h1>LEVEL {this.state.level}</h1>
+        <h3>Difficulty: {this.state.difficulty}</h3>
 
         <div>
           {/*<button onClick={this.postMap}>post map</button>*/}
@@ -212,17 +191,19 @@ class Game extends Component {
             Skip level
           </button>
         </div>
-        <Col xs="8">
-          <div className="">
+        <br></br>
+        <Row>
+        <Col xs="8" className="text-center pagination-centered mx-auto">
             <BoxGrid
               squares={this.state.squares}
               onMakeSelection={this.handleMakeSelection.bind(this)}
             />
-          </div>
         </Col>
-        <Col xs="4">
-          <WordList answers={answers} />
+        <Col xs="4" className="mx-auto">
+        <h3>Words to find:</h3>
+          <WordList answers={this.state.answers} />
         </Col>
+        </Row>
         {/*finish this level*/}
         <Modal
           isOpen={this.state.warningFinish}

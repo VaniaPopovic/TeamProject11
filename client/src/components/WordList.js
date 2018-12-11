@@ -6,7 +6,7 @@ class WordList extends Component {
     console.log("ans", answers);
     return (
       <div>
-        <ListGroup >
+        <ListGroup className="col-6">
           {answers.map(answer => {
             if (answer.isFound) {
               return (

@@ -87,6 +87,7 @@ class WordFind extends Component {
               <CardBody className="pb-0">
                 {/*<button onClick={this.postMap}>post map</button> */}
                 <Game />
+				<PuzzleGenerator />
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: "70px" }} />
             </Card>

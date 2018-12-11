@@ -2,17 +2,15 @@
     box-sizing: border-box;
 }
 
-body {
-    padding: 10px;
-}
 
-ol {
+
+.clues ol {
     margin: 0;
     padding: 0;
     list-style-position: inside;
 }
 
-li {
+.clue li {
     list-style-type: none;
 }
 

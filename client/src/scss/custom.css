@@ -1,18 +1,6 @@
-
-
-#matrix {
-  border: 1px solid red;
-  margin: 0 auto;
-  padding: 1px;
-}
-
-#matrix tr, td {
-  padding: 1px;
-}
-
 #matrix button {
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
   border: none;
   font-family: helvetica;
   font-weight: bold;

@@ -114,7 +114,7 @@ class BoxGrid extends React.Component {
       );
     });
 
-    return <div><table id="matrix">{grid}</table></div>;
+    return <div><table className="mx-auto" id="matrix">{grid}</table></div>;
   }
 }
 
