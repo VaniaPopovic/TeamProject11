@@ -1,37 +1,11 @@
 import React, { Component } from "react";
-import {Col, Card,
-CardHeader, CardBody, Input, CardFooter} from 'reactstrap';
-
-// 	/**
-// 	 * Iterate over the grid, placing chars from the char pool into empty
-// 	 * spaces at random.
-// 	 * @param grid
-// 	 * @param charPool
-// 	 * @return
-// 	 */
-// 	 placeCharsFromCharPool(grid,charPool)
-// 	{
-// 		var char_pool_index = RandomNumberGeneratorFactory.getRNG().nextInt(charPool.length - 1);
-// 		var c = charPool[char_pool_index];
-// 		for(var i = 0; i < grid.getYSize(); i++)
-// 		{
-// 			for(var j = 0; j < grid.getXSize(); j++)
-// 			{
-// 				var gc = new GridCoordinate(j,i);
-// 				if(grid.getCharAt(gc) == Grid.BLANK_CHAR)
-// 				{
-// 					grid.setCharAt(gc, c);
-// 					char_pool_index = RandomNumberGeneratorFactory.getRNG().nextInt(charPool.length - 1);
-// 					c = charPool[char_pool_index];
-// 				}
-// 			}
-// 		}
-// 		return grid;
-//   }
+import { Col, Card, CardHeader, CardBody, Input, CardFooter } from "reactstrap";
+import BoxGrid from "./BoxGrid";
 
 class PuzzleGeneration extends React.Component {
   constructor(props) {
     super();
+    this.state = { squares: [] };
     this.DIR_HORIZONTAL = 0;
     this.DIR_VERTICAL = 1;
     this.DIR_DIAG_UP = 2;
@@ -115,7 +89,7 @@ class PuzzleGeneration extends React.Component {
     var grid = this.matrix(this.rows, this.columns, "0");
     grid = this.writeWords(grid);
     //  Write answer key here
-    //grid = writeRandomChars(grid);
+    grid = this.writeRandomChars(grid);
     return grid;
   }
 
@@ -134,23 +108,52 @@ class PuzzleGeneration extends React.Component {
     return grid;
   }
 
-  // 	/**
-  // 	 * Write random "noise" characters to any grid coordinates which are blank.
-  // 	 * The characters written depend on the difficulty of the puzzle.
-  // 	 * @param grid
-  // 	 * @return
-  // 	 */
-  //   writeRandomChars(grid)
-  // 	{
-  // 		var charPool = ALL_CHARS;
-  // 		grid = placeCharsFromCharPool(grid, charPool);
-  // 		return grid;
-  // 	}
-  // 	/**
-  // 	 * Writes the word at a random location and direction on the grid.
-  // 	 */
+  writeRandomChars(grid) {
+    var charPool = this.ALL_CHARS;
+    if(this.props.difficulty == "EASY"){
+      for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+          if (grid[i][j] == "0") {
+            grid[i][j] = "a";
+          }
+        }
+      }
+    }
+    else if(this.props.difficulty =="NORMAL"){
+      for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+          if (grid[i][j] == "0") {
+            grid[i][j] = charPool[Math.floor(Math.random() * 24)];
+          }
+        }
+      }
+    }
+   
+    return grid;
+  }
+
+  placeCharsFromCharPool(grid, charPool) {
+    var char_pool_index = Math.floor(Math.random() * 24);
+    var c = charPool[char_pool_index];
+    for (var i = 0; i < this.rows; i++) {
+      for (var j = 0; j < this.colums; j++) {
+        //var gc = new GridCoordinate(j,i);
+        if (grid[i][j] == "0") {
+          grid[i][j] = c;
+          char_pool_index =
+          Math.floor(Math.random() * 24);
+          c = charPool[char_pool_index];
+        }
+      }
+    }
+    return grid;
+  }
+
+  /**
+   * Writes the word at a random location and direction on the grid.
+   */
   placeWord(word, grid) {
-    console.log("place", this.difficulty);
+    console.log("place", this.props.difficulty);
     var isValidPlacement = false; // Is the word able to be placed at this direction & starting position?
     var direction = 0;
     var startingPosition = { x: 0, y: 0 };
@@ -191,29 +194,21 @@ class PuzzleGeneration extends React.Component {
   move(gc, direction) {
     console.log("PREPEI NAN 0 JE 1", direction);
     if (direction == this.DIR_HORIZONTAL) {
-      console.log("YES");
       return { x: gc.x + 1, y: gc.y };
     } else if (direction == this.DIR_VERTICAL) {
-      console.log("YES");
       return { x: gc.x, y: gc.y + 1 };
     } else if (direction == this.DIR_DIAG_UP) {
-      console.log("no");
       return { x: gc.x + 1, y: gc.y - 1 };
     } else if (direction == this.DIR_DIAG_DOWN) {
-      console.log("no");
       return { x: gc.x + 1, y: gc.y + 1 };
     } else if (direction == this.DIR_R_HORIZONTAL) {
-      console.log("no");
       return { x: gc.x - 1, y: gc.y };
     } else if (direction == this.DIR_R_VERTICAL) {
-      console.log("no");
       return { x: gc.x, y: gc.y - 1 };
     } else if (direction == this.DIR_R_DIAG_UP) {
-      console.log("no");
       return { x: gc.x - 1, y: gc.y - 1 };
     } //  Reverse Diagonal Down
     else {
-      console.log("no");
       return { x: gc.x - 1, y: gc.y + 1 };
     }
   }
@@ -280,7 +275,8 @@ class PuzzleGeneration extends React.Component {
 
   render() {
     var gr = "";
-    if(this.props.answers){
+    var sq = [];
+    if (this.props.answers) {
       var gr = this.generate();
       var gridJson = [];
       console.log(gr);
@@ -293,19 +289,33 @@ class PuzzleGeneration extends React.Component {
         gridJson.push([str]);
       }
       var obj = {};
-      obj.grid = gridJson;
-      obj.difficulty = this.props.difficulty;
+
+      obj.level = this.props.level;
       obj.answers = this.props.answers;
+      obj.difficulty = this.props.difficulty;
+      obj.grid = gridJson;
       var jsonString = JSON.stringify(obj);
       console.log("GRID", jsonString);
+      gr = jsonString;
+      sq = [];
+      for (var r = 0; r < gridJson.length; r++) {
+        sq.push([]);
+        for (var c = 0; c < gridJson[r].length; c++) {
+          var str = gridJson[r][c].split("");
+          for (var g = 0; g < str.length; g++) {
+            sq[r].push({
+              value: str[g],
+              revealed: false
+            });
+          }
+        }
+      }
     }
-    
+
     return (
       <div>
-       
-                     <p>{gr}</p>
-        
-          
+        <p>{gr}</p>
+        <BoxGrid squares={sq} />
       </div>
     );
   }
