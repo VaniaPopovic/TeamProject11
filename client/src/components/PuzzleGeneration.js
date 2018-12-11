@@ -124,11 +124,12 @@ class PuzzleGeneration extends React.Component {
 
   writeRandomChars(grid) {
     var charPool = this.ALL_CHARS;
+    var rnd = charPool[Math.floor(Math.random() * 24)]
     if(this.props.difficulty == "EASY"){
       for (var i = 0; i < this.props.size; i++) {
         for (var j = 0; j < this.props.size; j++) {
           if (grid[i][j] == "0") {
-            grid[i][j] = "A";
+            grid[i][j] = rnd;
           }
         }
       }
