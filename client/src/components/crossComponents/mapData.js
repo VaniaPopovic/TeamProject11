@@ -1,12 +1,10 @@
 import axios from "axios";
 
-
 //LEVEL 1  --- 3 3 3
 const mapData = new Crosswords({
   level: 1,
   totalCorrect: 7,
   clues: {
-
     across: [
       {
         number: 1,
@@ -315,17 +313,13 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
-
-
 
 //LEVEL 2  --- 3 3 4
 const mapData = new Crosswords({
   level: 2,
   totalCorrect: 8,
   clues: {
-
     across: [
       {
         number: 1,
@@ -344,7 +338,6 @@ const mapData = new Crosswords({
         clue: "Please lock the __ when you go outside.",
         answer: "door"
       }
-
     ]
   },
   grid: [
@@ -640,16 +633,13 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
-
 
 //LEVEL 3  --- 3 4 5
 const mapData = new Crosswords({
   level: 3,
-  totalCorrect: 8,
+  totalCorrect: 10,
   clues: {
-
     across: [
       {
         number: 1,
@@ -668,7 +658,6 @@ const mapData = new Crosswords({
         clue: "The opposite of wet.",
         answer: "dry"
       }
-
     ]
   },
   grid: [
@@ -972,14 +961,12 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 //level4:
 const mapData = new Crosswords({
   level: 4,
   totalCorrect: 13,
   clues: {
-
     across: [
       {
         number: 1,
@@ -1003,7 +990,6 @@ const mapData = new Crosswords({
         clue: "An insect bite.",
         answer: "sting"
       }
-
     ]
   },
   grid: [
@@ -1320,7 +1306,6 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 
 //level 5
@@ -1328,7 +1313,6 @@ const mapData = new Crosswords({
   level: 5,
   totalCorrect: 15,
   clues: {
-
     across: [
       {
         number: 1,
@@ -1357,7 +1341,6 @@ const mapData = new Crosswords({
         clue: "It is blue and sunny during the day and black at night.",
         answer: "sky"
       }
-
     ]
   },
   grid: [
@@ -1683,16 +1666,13 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
-
 
 //level 6
 const mapData = new Crosswords({
   level: 6,
   totalCorrect: 15,
   clues: {
-
     across: [
       {
         number: 1,
@@ -2045,7 +2025,6 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 
 //level 7
@@ -2053,7 +2032,6 @@ const mapData = new Crosswords({
   level: 7,
   totalCorrect: 20,
   clues: {
-
     across: [
       {
         number: 1,
@@ -2432,7 +2410,6 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 
 //level 8
@@ -2440,7 +2417,6 @@ const mapData = new Crosswords({
   level: 8,
   totalCorrect: 23,
   clues: {
-
     across: [
       {
         number: 1,
@@ -2571,7 +2547,6 @@ const mapData = new Crosswords({
       down: false,
       clue_down: null,
       number: 1
-
     },
     {
       id: "C2",
@@ -2865,7 +2840,8 @@ const mapData = new Crosswords({
     {
       id: "H9",
       letter: null
-    }, {
+    },
+    {
       id: "I1",
       letter: null
     },
@@ -2906,7 +2882,6 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 
 //level 9
@@ -2914,7 +2889,6 @@ const mapData = new Crosswords({
   level: 9,
   totalCorrect: 24,
   clues: {
-
     across: [
       {
         number: 1,
@@ -3063,7 +3037,6 @@ const mapData = new Crosswords({
     {
       id: "C1",
       letter: null
-
     },
     {
       id: "C2",
@@ -3347,7 +3320,8 @@ const mapData = new Crosswords({
     {
       id: "H9",
       letter: null
-    }, {
+    },
+    {
       id: "I1",
       letter: null
     },
@@ -3388,7 +3362,6 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
 
 //level 10
@@ -3396,7 +3369,6 @@ const mapData = new Crosswords({
   level: 10,
   totalCorrect: 28,
   clues: {
-
     across: [
       {
         number: 1,
@@ -3544,7 +3516,6 @@ const mapData = new Crosswords({
       clue_across: null,
       down: true,
       clue_down: 5
-
     },
     {
       id: "C2",
@@ -3971,19 +3942,18 @@ const mapData = new Crosswords({
       letter: null
     }
   ]
-
 });
-mapData.save()
+mapData
+  .save()
   .then(data => {
     res.send(data);
-  }).catch(err => {
-  res.status(500).send({
-    message: err.message || "Some error occurred while creating the Map."
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: err.message || "Some error occurred while creating the Map."
+    });
   });
+
+axios.post("/api/crosswords/post").then(res => {
+  alert("asdfa");
 });
-
-axios.post("/api/crosswords/post")
-  .then(res => {
-    alert("asdfa");
-
-  });

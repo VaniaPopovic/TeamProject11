@@ -2,12 +2,11 @@ Todo
 
 Charles:
 
-1. every modal for every level
-2. score display in crosswords
-3. skip button in every game
+1. skip function can not work in scrabble , I don't know why
+2. score system in crosswords
 
-~~4. hints in crosswords and display~~
-
+~~4. hints in crosswords and display~~  
+~~3.finish every level and skip in word find~~  
 Vania:
 
 1. UI modify
