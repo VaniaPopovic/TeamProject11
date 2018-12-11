@@ -27,7 +27,7 @@ router.post("/post", function(req, res, next) {
   console.log(req.body.answers);
   console.log(req.body.grid);
   const mapData = new WordFind({
-    puzzleIndex: 3,
+    puzzleIndex: req.body.puzzleIndex,
     level: req.body.level,
     difficulty: req.body.difficulty,
     answers: req.body.answers,

@@ -6,7 +6,6 @@ import axios from 'axios';
 class PuzzleGeneration extends React.Component {
   constructor(props) {
     super();
-    this.state = { squares: [] };
     this.DIR_HORIZONTAL = 0;
     this.DIR_VERTICAL = 1;
     this.DIR_DIAG_UP = 2;
@@ -69,7 +68,9 @@ class PuzzleGeneration extends React.Component {
   postMap(obj) {
     //alert("postingobject");
     //console.log(obj);
-    axios.post("/api/wordFind/post", {level:obj.level, 
+    axios.post("/api/wordFind/post", {
+    level:obj.level, 
+    puzzleIndex:obj.puzzleIndex,
     difficulty:obj.difficulty,
     answers:obj.answers,
     grid: obj.grid
@@ -99,7 +100,7 @@ class PuzzleGeneration extends React.Component {
 
   generate() {
     //console.log("egen",this.difficulty);
-    var grid = this.matrix(this.rows, this.columns, "0");
+    var grid = this.matrix(this.props.size, this.props.size, "0");
     grid = this.writeWords(grid);
     //  Write answer key here
     grid = this.writeRandomChars(grid);
@@ -124,22 +125,25 @@ class PuzzleGeneration extends React.Component {
   writeRandomChars(grid) {
     var charPool = this.ALL_CHARS;
     if(this.props.difficulty == "EASY"){
-      for (var i = 0; i < 8; i++) {
-        for (var j = 0; j < 8; j++) {
+      for (var i = 0; i < this.props.size; i++) {
+        for (var j = 0; j < this.props.size; j++) {
           if (grid[i][j] == "0") {
-            grid[i][j] = "a";
+            grid[i][j] = "A";
           }
         }
       }
     }
     else if(this.props.difficulty =="NORMAL"){
-      for (var i = 0; i < 8; i++) {
-        for (var j = 0; j < 8; j++) {
+      for (var i = 0; i < this.props.size; i++) {
+        for (var j = 0; j < this.props.size; j++) {
           if (grid[i][j] == "0") {
             grid[i][j] = charPool[Math.floor(Math.random() * 24)];
           }
         }
       }
+    }
+    else {
+
     }
    
     return grid;
@@ -174,8 +178,8 @@ class PuzzleGeneration extends React.Component {
     while (!isValidPlacement) {
       direction = this.generateRandomDirection();
       startingPosition = {
-        x: Math.floor(Math.random() * this.rows),
-        y: Math.floor(Math.random() * this.columns)
+        x: Math.floor(Math.random() * this.props.size),
+        y: Math.floor(Math.random() * this.props.size)
       };
       isValidPlacement = this.willWordPrint(
         startingPosition,
@@ -235,7 +239,7 @@ class PuzzleGeneration extends React.Component {
     for (var i = 0; i < length; i++) {
       var x = currentPos.x;
       var y = currentPos.y;
-      if (x >= this.rows || y >= this.columns || x < 0 || y < 0) {
+      if (x >= this.props.size || y >= this.props.size || x < 0 || y < 0) {
         return false;
       }
       currentPos = this.move(currentPos, direction);
@@ -293,9 +297,9 @@ class PuzzleGeneration extends React.Component {
       var gr = this.generate();
       var gridJson = [];
       console.log(gr);
-      for (var i = 0; i < this.rows; i++) {
+      for (var i = 0; i < this.props.size; i++) {
         var str = "";
-        for (var j = 0; j < this.columns; j++) {
+        for (var j = 0; j < this.props.size; j++) {
           str = str + gr[i][j];
           //console.log(gr[i][j])
         }
@@ -304,6 +308,7 @@ class PuzzleGeneration extends React.Component {
       var obj = {};
 
       obj.level = this.props.level;
+      obj.puzzleIndex = this.props.puzzleIndex;
       obj.answers = this.props.answers;
       obj.difficulty = this.props.difficulty;
       obj.grid = gridJson;

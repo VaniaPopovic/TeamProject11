@@ -35,7 +35,9 @@ class PuzzleGenerator extends Component {
     this.state = {
      level:0,
      answers:[],
-     difficulty:""
+     difficulty:"",
+     size:0,
+     puzzleIndex:0,
     };
   }
   toggle() {
@@ -63,7 +65,7 @@ class PuzzleGenerator extends Component {
                 <div>
                   <h1>Anywhere in your app!</h1>
                   <Formik
-                    initialValues={{ level: "", answers: "", difficulty: "", }}
+                    initialValues={{ level: "", answers: "", difficulty: "", size:"", puzzleIndex:"" }}
                     onSubmit={(values, { setSubmitting }) => {
                       console.log(values);
                       setTimeout(() => {
@@ -71,7 +73,9 @@ class PuzzleGenerator extends Component {
                        this.setState({
                          level: values.level,
                         difficulty: values.difficulty,
-                        answers: Ar
+                        answers: Ar,
+                        puzzleIndex: values.puzzleIndex,
+                        size: values.size,
                        });
                         setSubmitting(false);
                       }, 400);
@@ -96,6 +100,23 @@ class PuzzleGenerator extends Component {
                           onBlur={handleBlur}
                           value={values.level}
                         />
+                         <p>Puzzle Index</p>
+                        <input
+                          type="text"
+                          name="puzzleIndex"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.puzzleIndex}
+                        />
+                         <p>Size</p>
+                        <input
+                          type="text"
+                          name="size"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.size}
+                        />
+                       
                         <p>Answers</p>
                         <input
                           type="text-area"
@@ -112,6 +133,7 @@ class PuzzleGenerator extends Component {
                           onBlur={handleBlur}
                           value={values.difficulty}
                         />
+                       
                         <button type="submit" disabled={isSubmitting}>
                           Submit
                         </button>
@@ -129,7 +151,12 @@ class PuzzleGenerator extends Component {
             <CardHeader>OUTPUT JSON</CardHeader>
             <CardBody>
             <Col xs="12" md="9">
-            <PuzzleGeneration level={this.state.level} answers={this.state.answers} difficulty={this.state.difficulty} />
+            <PuzzleGeneration level={this.state.level} 
+            answers={this.state.answers} 
+            difficulty={this.state.difficulty} 
+            size ={this.state.size}
+            puzzleIndex ={this.state.puzzleIndex}
+            />
                     </Col>
             </CardBody>
             <CardFooter />
