@@ -130,7 +130,7 @@ class Crosswords extends Component {
       <div className="crossword" key={this.state.level}>
         <h1>LEVEL {this.state.level}</h1>
         <div>
-          {/* <button onClick={this.postMap}>post map</button> */}
+          {/*<button onClick={this.postMap}>post map</button>*/}
           <button
             type="button"
             className={"btn btn-success"}
@@ -156,6 +156,7 @@ class Crosswords extends Component {
         <Boxes
           level={this.state.level}
           grid={this.state.grid}
+          clues={this.state.clues}
           totalCorrect={this.state.totalCorrect}
           finishAndNextLevel={this.finishAndNextLevel}
         />

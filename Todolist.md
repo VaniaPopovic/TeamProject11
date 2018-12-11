@@ -2,7 +2,7 @@ Todo
 
 Charles:
 
-1. skip function can not work in scrabble , I don't know why
+1. skip function in scrabble and database in scrabble
 2. score system in crosswords
 
 ~~4. hints in crosswords and display~~  

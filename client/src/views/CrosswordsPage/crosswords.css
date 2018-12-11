@@ -1,88 +1,83 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-
 
 .clues ol {
-    margin: 0;
-    padding: 0;
-    list-style-position: inside;
-}
-
-.clue li {
-    list-style-type: none;
-}
-
-.crossword {
-    display: flex;
-    justify-content: space-around;
-    margin: 0 auto;
-}
-
-.boxes {
-    align-self: center;
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(50px * 8);
-
-}
-
-.boxes8 {
-    align-self: center;
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(50px * 9);
-}
-
-.boxes10 {
-    align-self: center;
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(50px * 10);
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
 }
 
 .clue {
-    padding: 4px 0;
-    font-size: large;
+  list-style-type: none;
+}
+
+.crossword {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.boxes {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(50px * 8);
+}
+
+.boxes8 {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(50px * 9);
+}
+
+.boxes10 {
+  align-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(50px * 10);
+}
+
+.clue {
+  padding: 4px 0;
+  font-size: large;
 }
 
 .box {
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgb(4, 4, 41);
-    text-align: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgb(4, 4, 41);
+  text-align: center;
 }
 
 .box-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .box-label {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    color: black;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  color: black;
 }
 
 .blank {
-    background: rgb(13, 41, 133);
+  background: rgb(13, 41, 133);
 }
 
 .solved {
-    background: rgba(46, 139, 87, 0.8);
+  background: rgba(46, 139, 87, 0.8);
 }
 
 @media all and (max-width: 2030px) {
-    .crossword {
-        flex-direction: column;
+  .crossword {
+    flex-direction: column;
+  }
 
-    }
-
-    .clue-lists {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 40px;
-    }
-
+  .clue-lists {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+  }
 }
