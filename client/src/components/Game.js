@@ -143,14 +143,14 @@ class Game extends Component {
       // Make sure the selected points are sorted.
       var strr = "";
       selected.sort(this.comparePoints);
-      for (var i = 0; i < selected.length; i++) {
+      for (let i = 0; i < selected.length; i++) {
         strr =
           strr + this.state.squares[selected[i].row][selected[i].col].value;
         //console.log(this.state.squares[selected[i].row][selected[i].col]);
       }
       // console.log(strr);
       // console.log("Answers Here", this.state.answers);
-      for (var i = 0; i < this.state.answers.length; i++) {
+      for (let i = 0; i < this.state.answers.length; i++) {
         //TODO: BETTER WAY OF CHECKING THIS
 
         if (strr === this.state.answers[i].value) {
@@ -194,7 +194,7 @@ class Game extends Component {
         <br></br>
         <Row>
         <Col xs="8" className="text-center pagination-centered mx-auto">
-            <BoxGrid
+            <BoxGrid 
               squares={this.state.squares}
               onMakeSelection={this.handleMakeSelection.bind(this)}
             />

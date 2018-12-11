@@ -11,6 +11,7 @@ const Navs = React.lazy(() => import('./views/Base/Navs'));
 const WordFind = React.lazy(() => import("./views/WordFind"));
 const CrosswordsPage = React.lazy(() => import("./views/CrosswordsPage"));
 const ScrabblePage = React.lazy(() => import("./views/WordUnscramble"));
+const PuzzleGeneratorPage = React.lazy(() => import("./views/PuzzleGenerator"));
 
 const Users = React.lazy(() => import("./views/Users/Users"));
 const User = React.lazy(() => import("./views/Users/User"));
@@ -21,6 +22,7 @@ const routes = [
   { path: "/wordfind", name: "WordFindPage", component: WordFind },
   { path: "/crosswords", name: "CrosswordsPage", component: CrosswordsPage },
   { path: "/scrabble", name: "ScrabblePage", component: ScrabblePage },
+  { path: "/generator", name: "PuzzleGeneratorPage", component: PuzzleGeneratorPage },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User }
 ];

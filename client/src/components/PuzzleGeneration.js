@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Col, Card,
+CardHeader, CardBody, Input, CardFooter} from 'reactstrap';
 
 // 	/**
 // 	 * Iterate over the grid, placing chars from the char pool into empty
@@ -27,7 +29,7 @@ import React, { Component } from "react";
 // 		return grid;
 //   }
 
-class PuzzleGenerator extends React.Component {
+class PuzzleGeneration extends React.Component {
   constructor(props) {
     super();
     this.DIR_HORIZONTAL = 0;
@@ -124,7 +126,7 @@ class PuzzleGenerator extends React.Component {
    */
   writeWords(grid) {
     //console.log("word",this.difficulty);
-    var words = ["charles", "vanja", "iphone", "dog ", "charge"];
+    var words = this.props.answers;
 
     for (let word of words) {
       grid = this.placeWord(word, grid);
@@ -260,43 +262,53 @@ class PuzzleGenerator extends React.Component {
     console.log(this.EASY_DIRECTIONS, "kotsiro");
 
     var index;
-    if (this.difficulty == "EASY") {
-
-	  index = Math.floor(Math.random() * this.EASY_DIRECTIONS.length) ;
-	  console.log("INDEX", this.EASY_DIRECTIONS.length)
-      console.log("efkolo!!!!!!!!!!!!!!!!!!!!!!!",this.EASY_DIRECTIONS[index]);
+    if (this.props.difficulty == "EASY") {
+      index = Math.floor(Math.random() * this.EASY_DIRECTIONS.length);
+      console.log("INDEX", this.EASY_DIRECTIONS.length);
+      console.log("efkolo!!!!!!!!!!!!!!!!!!!!!!!", this.EASY_DIRECTIONS[index]);
       return this.EASY_DIRECTIONS[index];
-    } else if (this.difficulty == "MEDIUM") {
-      console.log("MEDIO",this.NORMAL_DIRECTIONS[index]);
+    } else if (this.props.difficulty == "MEDIUM") {
+      console.log("MEDIO", this.NORMAL_DIRECTIONS[index]);
       index = Math.floor(Math.random() * this.NORMAL_DIRECTIONS.length);
       return this.NORMAL_DIRECTIONS[index];
     } else {
-      console.log("KAPOU TA SKATEPSES RE MATE",this.HARD_DIRECTIONS[index]);
+      console.log("KAPOU TA SKATEPSES RE MATE", this.HARD_DIRECTIONS[index]);
       index = Math.floor(Math.random() * this.HARD_DIRECTIONS.length);
       return this.HARD_DIRECTIONS[index];
     }
   }
 
   render() {
-    var gr = this.generate();
-    var gridJson = [];
-    console.log(gr);
-    for (var i = 0; i < this.rows; i++) {
-      var str = "";
-      for (var j = 0; j < this.columns; j++) {
-        str = str + gr[i][j];
-        //console.log(gr[i][j])
+    var gr = "";
+    if(this.props.answers){
+      var gr = this.generate();
+      var gridJson = [];
+      console.log(gr);
+      for (var i = 0; i < this.rows; i++) {
+        var str = "";
+        for (var j = 0; j < this.columns; j++) {
+          str = str + gr[i][j];
+          //console.log(gr[i][j])
+        }
+        gridJson.push([str]);
       }
-      gridJson.push([str]);
+      var obj = {};
+      obj.grid = gridJson;
+      obj.difficulty = this.props.difficulty;
+      obj.answers = this.props.answers;
+      var jsonString = JSON.stringify(obj);
+      console.log("GRID", jsonString);
     }
-    var obj = {};
-    obj.grid = gridJson;
-    obj.difficulty = this.difficulty;
-    obj.answers = ["charles", "vanja", "iphone", "dog ", "charge"];
-    var jsonString = JSON.stringify(obj);
-    console.log("GRID", jsonString);
-    return <div>HELLO</div>;
+    
+    return (
+      <div>
+       
+                     <p>{gr}</p>
+        
+          
+      </div>
+    );
   }
 }
 
-export default PuzzleGenerator;
+export default PuzzleGeneration;

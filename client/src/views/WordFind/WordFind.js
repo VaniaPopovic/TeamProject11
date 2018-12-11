@@ -12,7 +12,7 @@ import {
 } from "reactstrap";
 import Game from "components/Game";
 import puzzleData from "DATA.json";
-import PuzzleGenerator from "../../components/PuzzleGenerator";
+import PuzzleGeneration from "../../components/PuzzleGeneration";
 import axios from "axios";
 
 class WordFind extends Component {
@@ -87,7 +87,6 @@ class WordFind extends Component {
               <CardBody className="pb-0">
                 {/*<button onClick={this.postMap}>post map</button> */}
                 <Game />
-				<PuzzleGenerator />
               </CardBody>
               <div className="chart-wrapper mx-3" style={{ height: "70px" }} />
             </Card>

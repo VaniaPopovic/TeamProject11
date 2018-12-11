@@ -1,0 +1,6 @@
+{
+  "name": "PuzzleGenerator",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./PuzzleGenerator.js"
+}
