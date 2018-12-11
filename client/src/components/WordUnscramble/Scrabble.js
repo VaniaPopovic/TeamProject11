@@ -31,37 +31,45 @@ class Scrabble extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameIndex:0,
+      gameIndex: 0,
+      level: 0,
       tiles: [],
       score: 0,
       answers: [],
       foundWords: [],
       fadeIn: false,
-      info: true
+      info: true,
+      warning: false,
+      warningFinish: false
     };
 
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
     this.resetTiles = this.resetTiles.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
+    this.toggleWarning = this.toggleWarning.bind(this);
+    this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     console.log("mounting");
-    this.getMapFromServer(this.state.gameIndex);
+    this.getMapFromServer(this.state.level);
   }
   //get map from database
   getMapFromServer(lvl) {
     axios
-      .get("/api/Scrabble/get",{
+      .get("/api/Scrabble/get", {
         params: {
           level: lvl
         }
       })
       .then(response => {
         //print  console() you can not add "string" in console ,just print it alone
-        console.log("RESPONSE",response);
-        this.setState({tiles:response.data.grid,
-                  answers: response.data.answers  });
+        console.log("RESPONSE", response);
+        this.setState({
+          level: response.data.level,
+          tiles: response.data.grid,
+          answers: response.data.answers
+        });
       })
       .catch(error => {
         console.log(error);
@@ -72,6 +80,23 @@ class Scrabble extends Component {
       info: !this.state.info
     });
   }
+  //skip this level
+  skipLevel() {
+    console.log("enter");
+    this.toggleWarning();
+    //this.getMapFromServer(this.state.level + 1);
+  }
+  toggleWarning() {
+    this.setState({
+      warning: !this.state.warning
+    });
+  }
+  toggleWarningFinish() {
+    this.setState({
+      warningFinish: !this.state.warningFinish
+    });
+  }
+
   updateDroppedTilePosition({ x, y }, tile) {
     // Normally, this would be done through a Redux action, but because this
     // is such a contrived example, I'm just passing the action down through
@@ -109,7 +134,7 @@ class Scrabble extends Component {
       row.map(index => {
         return (
           <BoardSquare
-            key ={Math.random()*10}
+            key={Math.random() * 10}
             x={index}
             y={rowIndex}
             onDrop={this.updateDroppedTilePosition}
@@ -159,62 +184,79 @@ class Scrabble extends Component {
     for (var i = 0; i < this.state.answers.length; i++) {
       if (word == this.state.answers[i]) {
         //if word not already found
-        if(!this.state.foundWords.includes(word)){
-        let found = this.state.foundWords;
-        found.push(word);
-        result = true;
-        console.log("FOUND IT");
-        var sc = this.state.score + 10;
-        this.setState({ score: sc, fadeIn: !this.state.fadeIn,foundWords: found });
-
-        setTimeout(() => {
+        if (!this.state.foundWords.includes(word)) {
+          let found = this.state.foundWords;
+          found.push(word);
+          result = true;
+          console.log("FOUND IT");
+          var sc = this.state.score + 10;
           this.setState({
+            score: sc,
             fadeIn: !this.state.fadeIn,
-            
+            foundWords: found
           });
-        }, 2000);
-        this.isGameDone();
-      }
+
+          setTimeout(() => {
+            this.setState({
+              fadeIn: !this.state.fadeIn
+            });
+          }, 2000);
+          this.isGameDone();
+        }
       }
     }
   };
   isGameDone() {
     console.log("ans", this.state.answers);
-    console.log("found",this.state.foundWords);
+    console.log("found", this.state.foundWords);
     // Check if we've found all targets.
-    if(this.state.answers.sort().join(',')=== this.state.foundWords.sort().join(',')){
-      console.log("YUS",);
+    if (
+      this.state.answers.sort().join(",") ===
+      this.state.foundWords.sort().join(",")
+    ) {
+      console.log("YUS");
       //var finish = new Date().getTime();
-    //var t = finish -this.state.time;
-    this.state.foundWords.length =0;
-     this.setState({gameIndex: this.state.gameIndex+1,
-                    answers:[],
-                    //foundWords:f,
-                    tiles:[],
-                    score:0,
-                    fadeIn:false,
-    }, () => {
-      console.log(this.state.gameIndex);
-      this.getMapFromServer(this.state.gameIndex);
-    });
-       //elapsedTime: t,
-    //                   warning: true,  
-    //                               })
-    // setTimeout(function() {
-    //   this.getMapFromServer(this.state.puzzleIndex +1)
-    // }.bind(this), 2500);
-   // this.componentDidMount();
-  }
-  else console.log("NAH");
-      //else alert('not a match');
-    
+      //var t = finish -this.state.time;
+      this.state.foundWords.length = 0;
+      this.setState(
+        {
+          //gameIndex: this.state.gameIndex + 1,
+          level: this.state.level + 1,
+          answers: [],
+          //foundWords:f,
+          tiles: [],
+          score: 0,
+          fadeIn: false
+        },
+        () => {
+          console.log(this.state.level);
+          //this.getMapFromServer(this.state.gameIndex);
+          this.getMapFromServer(this.state.level);
+        }
+      );
+      //elapsedTime: t,
+      //                   warning: true,
+      //                               })
+      // setTimeout(function() {
+      //   this.getMapFromServer(this.state.puzzleIndex +1)
+      // }.bind(this), 2500);
+      // this.componentDidMount();
+    } else console.log("NAH");
+    //else alert('not a match');
   }
   render() {
     return (
       <div>
-        <h1>LEVEL {this.state.gameIndex}</h1>
+        <h1>LEVEL {this.state.level}</h1>
         <h4> {this.state.answers.length} WORD COMBINATIONS</h4>
         <h4>Score: {this.state.score}</h4>
+        <button
+          type="button"
+          className={"btn btn-success"}
+          onClick={this.toggleWarning}
+        >
+          Skip level
+        </button>
         <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
           <Alert color="success">Correct!</Alert>
         </Fade>
@@ -241,9 +283,11 @@ class Scrabble extends Component {
             Your aim is to find as many words by connecting the tiles available.{" "}
             <br />
             There are 10 levels with different amount of words to be found in
-            each level.<br />
+            each level.
+            <br />
             To get points of the word you need to drag the tiles and connect
-            them in the fuscia box!<br />
+            them in the fuscia box!
+            <br />
             For each level you get a time limit depending on the difficulty!
             <br />
             Good luck!
@@ -252,6 +296,49 @@ class Scrabble extends Component {
             <Button color="primary" onClick={this.toggleInfo}>
               I am ready!
             </Button>{" "}
+          </ModalFooter>
+        </Modal>
+        {/*finish this level*/}
+        <Modal
+          isOpen={this.state.warningFinish}
+          toggle={this.toggleWarningFinish}
+          className={"modal-info " + this.props.className}
+        >
+          <ModalHeader toggle={this.toggleWarningFinish}>
+            Congratulations!
+          </ModalHeader>
+          <ModalBody>
+            You have finished this level! Time taken : {this.state.elapsedTime}{" "}
+            seconds.
+            <br />
+            Now you can go to the next level.
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleWarningFinish}>
+              Confirm
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+        {/*Skip to next level*/}
+        <Modal
+          isOpen={this.state.warning}
+          toggle={this.toggleWarning}
+          className={"modal-info " + this.props.className}
+        >
+          <ModalHeader toggle={this.toggleWarning}>Warning!</ModalHeader>
+          <ModalBody>
+            If you skip this level, you will not get full score of this level.
+            <br />
+            Do you want to skip this level?
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.skipLevel}>
+              Confirm
+            </Button>
+            <Button color="secondary" onClick={this.toggleWarning}>
+              Cancel
+            </Button>
           </ModalFooter>
         </Modal>
       </div>
