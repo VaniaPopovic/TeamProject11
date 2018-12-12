@@ -2,11 +2,12 @@ Todo
 
 Charles:
 
-1. skip function in scrabble and database in scrabble
+1. skip function in scrabble and database
 2. score system in crosswords
 
 ~~4. hints in crosswords and display~~  
 ~~3.finish every level and skip in word find~~  
+~~finish first game map~~  
 Vania:
 
 1. UI modify

@@ -32,7 +32,7 @@ class Scrabble extends Component {
     super(props);
     this.state = {
       gameIndex: 0,
-      level: 0,
+      level: 1,
       tiles: [],
       score: 0,
       answers: [],
@@ -40,7 +40,7 @@ class Scrabble extends Component {
       fadeIn: false,
       info: true,
       warning: false,
-      warningFinish: false,
+      warningFinish: false
     };
     this.toggleWarning = this.toggleWarning.bind(this);
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
@@ -68,7 +68,7 @@ class Scrabble extends Component {
         this.setState({
           level: response.data.level,
           tiles: response.data.grid,
-          answers: response.data.answers,
+          answers: response.data.answers
         });
       })
       .catch(error => {
@@ -77,18 +77,17 @@ class Scrabble extends Component {
   }
   toggleInfo() {
     this.setState({
-      info: !this.state.info,
+      info: !this.state.info
     });
   }
   //skip this level
   skipLevel() {
-    console.log("enter");
     this.toggleWarning();
-    //this.getMapFromServer(this.state.level + 1);
+    this.getMapFromServer(this.state.level + 1);
   }
   toggleWarning() {
     this.setState({
-      warning: !this.state.warning,
+      warning: !this.state.warning
     });
   }
   toggleWarningFinish() {
