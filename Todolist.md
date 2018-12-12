@@ -2,17 +2,17 @@ Todo
 
 Charles:
 
-1. score show in scrablle when skip level
-2. score system in crosswords
-3. word find from 27 level has something wrong with the generator
+1. scrabble hints
 
 ~~4. hints in crosswords and display~~  
 ~~3.finish every level and skip in word find~~  
-~~scrabble level finish~~
+~~scrabble level finish~~  
+~~4. copy database to local~~  
+~~all levels are done in database~~
+
 Vania:
 
-1. UI modify
-2. scores saved in user infromation
+2. scores system
 3. font open Dyslexic
 
 Done:  
