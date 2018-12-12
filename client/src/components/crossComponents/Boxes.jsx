@@ -36,12 +36,12 @@ class Boxes extends React.Component {
   //猜词正确
   handleCorrectGuess(cluesToUpdate) {
     for (const clue of cluesToUpdate) {
-      console.log("enter guess--------");
+      console.log(clue);
       const clueNumber = clue.number;
       let currentState = this.state.answers;
       if (clue.direction == "across") {
         for (const temp of currentState.across) {
-          // console.log(temp);
+          console.log(temp);
           if (temp.number === clueNumber) {
             temp.correct++;
           }
@@ -57,13 +57,14 @@ class Boxes extends React.Component {
             answers: currentState
           });
         }
-      } else {
+      }
+      if (clue.direction == "down") {
         for (const temp of currentState.down) {
           // console.log(temp);
           if (temp.number === clueNumber) {
             temp.correct++;
           }
-          //console.log(temp);
+          console.log(temp);
           if (temp.correct === temp.answer.length) {
             if (temp.solved === false) {
               console.log(

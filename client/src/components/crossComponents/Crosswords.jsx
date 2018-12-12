@@ -21,13 +21,15 @@ class Crosswords extends Component {
         down: []
       },
       grid: [],
-      info: true
+      info: true,
+      score: 0
     };
     this.postMap = this.postMap.bind(this);
     this.changeMap = this.changeMap.bind(this);
     this.toggleWarning = this.toggleWarning.bind(this);
     this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
     this.finishAndNextLevel = this.finishAndNextLevel.bind(this);
+    this.handleScore = this.handleScore.bind(this);
     this.confirmNextLevel = this.confirmNextLevel.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePassLevel = this.togglePassLevel.bind(this);
@@ -58,7 +60,11 @@ class Crosswords extends Component {
       warningFinish: !this.state.warningFinish
     });
   }
-
+  handleScore() {
+    this.setState({
+      score: this.state.score + 10
+    });
+  }
   //从数据库得到数据并放入state中
   componentDidMount() {
     this.getMapFromServer(1);
@@ -114,6 +120,7 @@ class Crosswords extends Component {
     let finish = new Date().getTime();
     let t = finish - this.state.time;
     this.setState({ elapsedTime: t / 1000 });
+    this.handleScore();
     if (this.state.level === 10) {
       this.togglePassLevel();
     } else {
@@ -129,6 +136,7 @@ class Crosswords extends Component {
       //设置key来作为唯一id，如果key 不同则所有子控件都会不同
       <div className="crossword" key={this.state.level}>
         <h1>LEVEL {this.state.level}</h1>
+        <h4>Score: {this.state.score}</h4>
         <div>
           {/*<button onClick={this.postMap}>post map</button>*/}
           <button
@@ -158,6 +166,7 @@ class Crosswords extends Component {
           grid={this.state.grid}
           clues={this.state.clues}
           totalCorrect={this.state.totalCorrect}
+          handleScore={this.handleScore}
           finishAndNextLevel={this.finishAndNextLevel}
         />
         {/*跳到下一关dialog*/}
