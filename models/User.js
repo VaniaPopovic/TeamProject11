@@ -21,6 +21,11 @@ var UserSchema = new Schema({
   },
   scrabbleInfo: {
     level: Number,
+    completed: [{
+      level: Number,
+      timeTaken : String,
+      isFinished: Boolean,
+    }],
     score: Number
   }
 

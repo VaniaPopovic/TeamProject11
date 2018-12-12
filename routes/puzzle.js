@@ -28,7 +28,18 @@ router.post('/updateScore', passport.authenticate('jwt', { session: false}), fun
       console.log(req.user.username);
     User.findOneAndUpdate({
       username: req.user.username
-    },{$set: { "scrabbleInfo" : {level:8} }}
+      //we need to find a way to push to completed array here
+    },{$set: { "scrabbleInfo" : {level: 8} }},
+    { $push: 
+        {"scrabbleInfo.completed": 
+            {
+                "level": 8,
+                "timeTaken": "4.00",
+                "isFinished":true
+            }
+        }
+    },
+    console.log("EMBOKA")
     
     );
   }} 

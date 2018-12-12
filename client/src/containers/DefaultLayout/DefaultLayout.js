@@ -61,6 +61,7 @@ class DefaultLayout extends Component {
         //   this.props.history.push("/login");
         // }
        // console.log("errorassad",error);
+       console.log(error)
       });
   }
   logout = () => {
