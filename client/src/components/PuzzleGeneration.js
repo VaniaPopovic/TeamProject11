@@ -145,9 +145,11 @@ class PuzzleGeneration extends React.Component {
     }
     else if(this.props.difficulty =="HARD") {
       var charPool = this.props.answers.join();
-      charPool = charPool.replace(",","");
-      charPool = charPool.split(',').sort().join();
-      console.log("CHARPOOOOOOOOOOOOOOOOOOOOL,",charPool);
+     // console.log("CHARPOOOOOOOOOOOOOOOOOOOOL1,",charPool);
+     // charPool = charPool.replace(",","");
+     // console.log("CHARPOOOOOOOOOOOOOOOOOOOOL,2",charPool);
+      charPool = charPool.split(',').sort().join().replace(/,/g,"");
+      //console.log("CHARPOOOOOOOOOOOOOOOOOOOOL,3",charPool);
       for (var i = 0; i < this.props.size; i++) {
         for (var j = 0; j < this.props.size; j++) {
           if (grid[i][j] == "0") {

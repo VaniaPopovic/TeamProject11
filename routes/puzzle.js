@@ -30,8 +30,8 @@ router.post('/updateScore', passport.authenticate('jwt', { session: false}), fun
       username: req.user.username
       //we need to find a way to push to completed array here
     },{$set: { "scrabbleInfo" : {level: 8} }},
-    { $push: 
-        {"scrabbleInfo.completed": 
+    { "$push": 
+        {"scrabbleInfo.$[].completed": 
             {
                 "level": 8,
                 "timeTaken": "4.00",
