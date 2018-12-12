@@ -83,7 +83,16 @@ class Scrabble extends Component {
   //skip this level
   skipLevel() {
     this.toggleWarning();
-    this.getMapFromServer(this.state.level + 1);
+    this.setState(
+      {
+        level: this.state.level + 1,
+        score: 0
+      },
+      () => {
+        console.log(this.state.level);
+        this.getMapFromServer(this.state.level);
+      }
+    );
   }
   toggleWarning() {
     this.setState({
