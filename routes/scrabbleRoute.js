@@ -20,38 +20,69 @@ router.get("/get", function(req, res) {
 });
 //POST route for updating data
 router.post("/post", function(req, res, next) {
-  //level 5
+  //level 10
   const mapData = new Scrabble({
-    level: 5,
-    answers: ["fruit", "frit", "rift", "turf", "fir", "fit", "fur", "rut"],
+    level: 10,
+    answers: [
+      "expired",
+      "expire",
+      "pride",
+      "deep",
+      "deer",
+      "dire",
+      "drip",
+      "peer",
+      "pier",
+      "ride",
+      "ripe",
+      "reed",
+      "die",
+      "dip",
+      "pie",
+      "red",
+      "rid",
+      "rip"
+    ],
     grid: [
       {
         id: 1,
-        letter: "F",
-        x: 3,
+        letter: "E",
+        x: 1,
         y: 6
       },
       {
         id: 2,
-        letter: "I",
-        x: 4,
+        letter: "E",
+        x: 2,
         y: 6
       },
       {
         id: 3,
-        letter: "R",
-        x: 5,
+        letter: "X",
+        x: 3,
         y: 6
       },
       {
         id: 4,
-        letter: "T",
-        x: 6,
+        letter: "D",
+        x: 4,
         y: 6
       },
       {
         id: 5,
-        letter: "U",
+        letter: "I",
+        x: 5,
+        y: 6
+      },
+      {
+        id: 6,
+        letter: "P",
+        x: 6,
+        y: 6
+      },
+      {
+        id: 7,
+        letter: "R",
         x: 7,
         y: 6
       }

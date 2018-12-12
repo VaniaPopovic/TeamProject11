@@ -8,9 +8,7 @@ class WordUnscramble extends Component {
     super(props);
 
     // TODO: Load data asynchronously.
-    this.state = {
-     
-    };
+    this.state = {};
     this.postMap = this.postMap.bind(this);
   }
   postMap() {
@@ -25,9 +23,8 @@ class WordUnscramble extends Component {
   render() {
     return (
       <div className="animated fadeIn">
-      
         <Row>
-         <button onClick={this.postMap}>post map</button>
+          {/*<button onClick={this.postMap}>post map</button>*/}
           <Col xs="12" sm="12" lg="12">
             <Card className="text-white bg-info">
               <CardBody className="pb-0">

@@ -2,12 +2,13 @@ Todo
 
 Charles:
 
-1. skip function in scrabble and database
+1. score show in scrablle when skip level
 2. score system in crosswords
+3. word find from 27 level has something wrong with the generator
 
 ~~4. hints in crosswords and display~~  
 ~~3.finish every level and skip in word find~~  
-~~finish first game map~~  
+~~scrabble level finish~~
 Vania:
 
 1. UI modify
