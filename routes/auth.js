@@ -26,6 +26,7 @@ router.post('/register', function(req, res) {
   }
 });
 
+
 router.post('/login', function(req, res) {
   User.findOne({
     username: req.body.username
@@ -49,5 +50,13 @@ router.post('/login', function(req, res) {
     }
   });
 });
+
+router.post('/getUser', function(req, res) {
+  //if it is null
+  console.log(req.headers.authorization);
+  var a = "h";
+  return res.json({success: false, msg: 'Username already exists.'});
+  }
+);
 
 module.exports = router;

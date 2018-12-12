@@ -52,7 +52,7 @@ class Login extends Component {
       .then(result => {
         localStorage.setItem("jwtToken", result.data.token);
         this.setState({ message: "" });
-        this.props.history.push("/home");
+        this.props.history.push("/dashboard");
       })
       .catch(error => {
         if (error.response.status === 401) {

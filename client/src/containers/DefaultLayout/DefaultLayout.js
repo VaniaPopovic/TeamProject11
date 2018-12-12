@@ -1,6 +1,7 @@
 import React, { Component, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { Container } from "reactstrap";
+import axios from 'axios';
 
 import {
   AppAside,
@@ -32,28 +33,43 @@ class DefaultLayout extends Component {
     e.preventDefault();
     this.props.history.push("/login");
   }
-  /*
+  
   componentDidMount() {
+    // axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    // axios.get('/api/book')
+    //   .then(res => {
+    //     this.setState({ books: res.data });
+    //     console.log(this.state.books);
+    //   })
+    //   .catch((error) => {
+    //     if(error.response.status === 401) {
+    //       this.props.history.push("/login");
+    //     }
+    //     console.log(error);
+    //   });
+  }
+  
+  skata() {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/api/book')
+    axios.post('/api/puzzle/updateScore', {game:"scrabble"})
       .then(res => {
-        this.setState({ books: res.data });
-        console.log(this.state.books);
+       
+        console.log("vilo",res);
       })
       .catch((error) => {
-        if(error.response.status === 401) {
-          this.props.history.push("/login");
-        }
+        // if(error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
+       // console.log("errorassad",error);
       });
   }
-  */
-
   logout = () => {
     localStorage.removeItem("jwtToken");
     window.location.reload();
   };
 
   render() {
+    this.skata();
     return (
       <div className="app">
         <AppHeader fixed>

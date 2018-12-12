@@ -18,7 +18,7 @@ import {
   ModalHeader,
   Button
 } from "reactstrap";
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
+//import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 
 const BOARD_WIDTH = 11;
 const BOARD_HEIGHT = 7;
