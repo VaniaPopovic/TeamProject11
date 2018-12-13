@@ -31,22 +31,23 @@ class DefaultLayout extends Component {
 
   signOut(e) {
     e.preventDefault();
+    localStorage.removeItem("jwtToken");
     this.props.history.push("/login");
   }
   
   componentDidMount() {
-    // axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    // axios.get('/api/book')
-    //   .then(res => {
-    //     this.setState({ books: res.data });
-    //     console.log(this.state.books);
-    //   })
-    //   .catch((error) => {
-    //     if(error.response.status === 401) {
-    //       this.props.history.push("/login");
-    //     }
-    //     console.log(error);
-    //   });
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post('/api/puzzle')
+      .then(res => {
+        //this.setState({ books: res.data });
+        //console.log(this.state.books);
+      })
+      .catch((error) => {
+        if(error.response.status === 401) {
+          this.props.history.push("/login");
+        }
+        console.log(error);
+      });
   }
   
   

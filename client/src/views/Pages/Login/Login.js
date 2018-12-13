@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import {
@@ -24,9 +25,9 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
-      message: "",
+      username: '',
+      password: '',
+      message: '',
       info: false
     };
     this.toggleInfo = this.toggleInfo.bind(this);
