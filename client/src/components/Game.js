@@ -20,6 +20,7 @@ class Game extends Component {
       level: 1,
       difficulty: "",
       time: new Date().getTime(),
+      score:0,
       elapsedTime: 0,
       squares: [],
       answers: [],
@@ -74,6 +75,7 @@ class Game extends Component {
   //skip this level
   skipLevel() {
     this.toggleWarning();
+    this.postScores(this.state.puzzleIndex,"0",false,0);
     this.getMapFromServer(this.state.puzzleIndex + 1);
   }
   setNextPuzzle(data) {
@@ -84,6 +86,7 @@ class Game extends Component {
       time: new Date().getTime(),
       squares: this.getSquares(data.grid),
       answers: this.getAnswers(data.answers),
+      score:0,
       level: data.level,
       difficulty: data.difficulty,
       target: {}
@@ -97,14 +100,31 @@ class Game extends Component {
       }
     }
     var finish = new Date().getTime();
-    var t = finish - this.state.time;
-    this.setState({ elapsedTime: t / 1000, warningFinish: true });
+    var t = (finish - this.state.time)/1000;
+    this.postScores(this.state.puzzleIndex,t,true,this.state.score);
+    this.setState({ elapsedTime: t, warningFinish: true });
+
     setTimeout(
       function() {
         this.getMapFromServer(this.state.puzzleIndex + 1);
       }.bind(this),
       2500
     );
+  }
+  postScores(lvl,time,finished,score) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post('/api/puzzle/updateWordFindScore', {level:lvl,difficulty:this.state.difficulty,timeTaken:time,isFinished:finished, score:score})
+      .then(res => {
+       
+        console.log("vilo",res);
+      })
+      .catch((error) => {
+        // if(error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
+       // console.log("errorassad",error);
+       console.log(error)
+      });
   }
   getAnswers(squareData) {
     var answers = [];
@@ -160,8 +180,9 @@ class Game extends Component {
             this.state.squares[point.row][point.col].revealed = true;
           }
           n[i].isFound = true;
-
-          this.setState({ answers: n });
+          
+          this.setState({ answers: n ,
+          score: this.state.score+10});
           this.isPuzzleDone();
         }
       }
@@ -180,6 +201,7 @@ class Game extends Component {
        
         <h1>LEVEL {this.state.level}</h1>
         <h3>Difficulty: {this.state.difficulty}</h3>
+        <h3>Score: {this.state.score}</h3>
 
         <div>
           {/*<button onClick={this.postMap}>post map</button>*/}
