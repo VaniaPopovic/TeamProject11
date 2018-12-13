@@ -49,28 +49,14 @@ class DefaultLayout extends Component {
     //   });
   }
   
-  skata() {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.post('/api/puzzle/updateScore', {game:"scrabble"})
-      .then(res => {
-       
-        console.log("vilo",res);
-      })
-      .catch((error) => {
-        // if(error.response.status === 401) {
-        //   this.props.history.push("/login");
-        // }
-       // console.log("errorassad",error);
-       console.log(error)
-      });
-  }
+  
   logout = () => {
     localStorage.removeItem("jwtToken");
     window.location.reload();
   };
 
   render() {
-    this.skata();
+   // this.skata();
     return (
       <div className="app">
         <AppHeader fixed>

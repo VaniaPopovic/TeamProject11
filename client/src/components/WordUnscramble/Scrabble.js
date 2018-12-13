@@ -77,6 +77,22 @@ class Scrabble extends Component {
     console.log("mounting");
     this.getMapFromServer(this.state.level);
   }
+
+  postScores(lvl,time,finished,score) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post('/api/puzzle/updateScrabbleScore', {level:lvl,timeTaken:time,isFinished:finished, score:score})
+      .then(res => {
+       
+        console.log("vilo",res);
+      })
+      .catch((error) => {
+        // if(error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
+       // console.log("errorassad",error);
+       console.log(error)
+      });
+  }
   //get map from database
   getMapFromServer(lvl) {
     axios

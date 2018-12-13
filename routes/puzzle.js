@@ -1,10 +1,10 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var mongoose = require('mongoose');
-var Puzzle = require('../models/Puzzle.js');
-var passport = require('passport');
+var mongoose = require("mongoose");
+var Puzzle = require("../models/Puzzle.js");
+var passport = require("passport");
 var User = require("../models/user");
-require('../config/passport')(passport);
+require("../config/passport")(passport);
 
 /* GET ALL BOOKS */
 // router.get('/', passport.authenticate('jwt', { session: false}), function(req, res) {
@@ -19,46 +19,108 @@ require('../config/passport')(passport);
 //     return res.status(403).send({success: false, msg: 'Unauthorized.'});
 //   }
 // });
-router.post('/updateScore', passport.authenticate('jwt', { session: false}), function(req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-
-    if(req.body.game == "scrabble"){
-      console.log(token);
-      console.log(req.user.username);
-    User.findOneAndUpdate({
-      username: req.user.username
-      //we need to find a way to push to completed array here
-    },{$set: { "scrabbleInfo" : {level: 8} }},
-    { "$push": 
-        {"scrabbleInfo.$[].completed": 
-            {
-                "level": 8,
-                "timeTaken": "4.00",
-                "isFinished":true
+router.post(
+  "/updateScrabbleScore",
+  passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        console.log(token);
+        console.log(req.user.username);
+        var obj = { 
+          "level": req.body.level,
+          "timeTaken": req.body.timeTaken,
+          "isFinished":req.body.isFinished,
+          "score":req.body.score };
+        User.findOneAndUpdate(
+          { username: req.user.username },
+          { $set: { "scrabbleInfo.level" : req.body.level },$push: { "scrabbleInfo.completed": obj } },
+          function(error, success) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(success);
             }
-        }
-    },
-    console.log("EMBOKA")
-    
-    );
-  }} 
-});
-
+          }
+        );
+    }
+  }
+);
+router.post(
+  "/updateCrosswordScore",
+  passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        console.log(token);
+        console.log(req.user.username);
+        var obj = { 
+          "level": req.body.level,
+          "timeTaken": req.body.timeTaken,
+          "isFinished":req.body.isFinished,
+          "score": req.body.score 
+        };
+        User.findOneAndUpdate(
+          { username: req.user.username },
+          { $set: { "crosswordInfo.level" : req.body.level },$push: { "crosswordInfo.completed": obj } },
+          function(error, success) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(success);
+            }
+          }
+        );
+    }
+  }
+);
+router.post(
+  "/updateWordFindScore",
+  passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        console.log(token);
+        console.log(req.user.username);
+        var obj = { 
+          "level": req.body.level,
+          "difficulty":req.body.difficulty,
+          "timeTaken": req.body.timeTaken,
+          "isFinished":req.body.isFinished,
+          "score" : req.body.score 
+        };
+        User.findOneAndUpdate(
+          { username: req.user.username },
+          { $set: { "wordFindInfo.level" : req.body.level },$push: { "wordFindInfo.completed": obj } },
+          function(error, success) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log(success);
+            }
+          }
+        );
+    }
+  }
+);
 /* SAVE BOOK */
-router.post('/', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.post("/", passport.authenticate("jwt", { session: false }), function(
+  req,
+  res
+) {
   var token = getToken(req.headers);
   if (token) {
-      console.log(token);
-      console.log(req.user);
-      res.json({"username": req.user.username})
+    console.log(token);
+    console.log(req.user);
+    res.json({ username: req.user.username });
   } else {
-    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    return res.status(403).send({ success: false, msg: "Unauthorized." });
   }
 });
-getToken = function (headers) {
+
+getToken = function(headers) {
   if (headers && headers.authorization) {
-    var parted = headers.authorization.split(' ');
+    var parted = headers.authorization.split(" ");
     if (parted.length === 2) {
       return parted[1];
     } else {

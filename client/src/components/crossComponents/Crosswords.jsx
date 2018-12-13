@@ -105,9 +105,24 @@ class Crosswords extends Component {
         console.log(error);
       });
   }
-
+  postScores(lvl,time,finished,score) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post('/api/puzzle/updateCrosswordScore', {level:lvl,timeTaken:time,isFinished:finished, score:score})
+      .then(res => {
+       
+        console.log("vilo",res);
+      })
+      .catch((error) => {
+        // if(error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
+       // console.log("errorassad",error);
+       console.log(error)
+      });
+  }
   //确认进入下一关
   confirmNextLevel() {
+    this.postScores(this.state.level,"0",false,0);
     this.setState({
       warning: false,
       warningFinish: false
@@ -118,8 +133,9 @@ class Crosswords extends Component {
   //完成本关进入下一关
   finishAndNextLevel() {
     let finish = new Date().getTime();
-    let t = finish - this.state.time;
-    this.setState({ elapsedTime: t / 1000 });
+    let t = (finish - this.state.time)/1000;
+    this.postScores(this.state.level,t,true,100);
+    this.setState({ elapsedTime: t });
     this.handleScore();
     if (this.state.level === 10) {
       this.togglePassLevel();

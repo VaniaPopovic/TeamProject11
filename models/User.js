@@ -14,10 +14,22 @@ var UserSchema = new Schema({
   },
   wordFindInfo: {
     level: Number,
-    difficulty: String
+    completed: [{
+      level: Number,
+      difficulty: String,
+      timeTaken : String,
+      isFinished: Boolean,
+      score: Number
+    }]
   },
   crosswordInfo: {
-    level: Number
+    level: Number,
+    completed: [{
+      level: Number,
+      timeTaken : String,
+      isFinished: Boolean,
+      score : Number
+    }]
   },
   scrabbleInfo: {
     level: Number,
@@ -25,8 +37,8 @@ var UserSchema = new Schema({
       level: Number,
       timeTaken : String,
       isFinished: Boolean,
-    }],
-    score: Number
+      score: Number
+    }]
   }
 
 });
