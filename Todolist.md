@@ -2,8 +2,7 @@ Todo
 
 Charles:
 
-1. scrabble hints
-
+~~scrabble hints~~
 ~~4. hints in crosswords and display~~  
 ~~3.finish every level and skip in word find~~  
 ~~scrabble level finish~~  

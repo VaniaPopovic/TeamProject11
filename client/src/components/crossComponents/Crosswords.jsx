@@ -30,7 +30,8 @@ class Crosswords extends Component {
     this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
     this.finishAndNextLevel = this.finishAndNextLevel.bind(this);
     this.handleScore = this.handleScore.bind(this);
-    this.confirmNextLevel = this.confirmNextLevel.bind(this);
+    this.confirmSkipLevel = this.confirmSkipLevel.bind(this);
+    this.confirmFinishLevel = this.confirmFinishLevel.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.togglePassLevel = this.togglePassLevel.bind(this);
   }
@@ -105,36 +106,50 @@ class Crosswords extends Component {
         console.log(error);
       });
   }
-  postScores(lvl,time,finished,score) {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.post('/api/puzzle/updateCrosswordScore', {level:lvl,timeTaken:time,isFinished:finished, score:score})
-      .then(res => {
-       
-        console.log("vilo",res);
+  postScores(lvl, time, finished, score) {
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "jwtToken"
+    );
+    axios
+      .post("/api/puzzle/updateCrosswordScore", {
+        level: lvl,
+        timeTaken: time,
+        isFinished: finished,
+        score: score
       })
-      .catch((error) => {
+      .then(res => {
+        console.log("vilo", res);
+      })
+      .catch(error => {
         // if(error.response.status === 401) {
         //   this.props.history.push("/login");
         // }
-       // console.log("errorassad",error);
-       console.log(error)
+        // console.log("errorassad",error);
+        console.log(error);
       });
   }
-  //确认进入下一关
-  confirmNextLevel() {
-    this.postScores(this.state.level,"0",false,0);
+  //确认跳入下一关
+  confirmSkipLevel() {
+    this.postScores(this.state.level, "0", false, 0);
     this.setState({
       warning: false,
       warningFinish: false
     });
     this.changeMap();
   }
-
+  //确认完成这一关
+  confirmFinishLevel() {
+    this.postScores(this.state.level, this.state.elapsedTime, true, 100);
+    this.setState({
+      warning: false,
+      warningFinish: false
+    });
+    this.changeMap();
+  }
   //完成本关进入下一关
   finishAndNextLevel() {
     let finish = new Date().getTime();
-    let t = (finish - this.state.time)/1000;
-    this.postScores(this.state.level,t,true,100);
+    let t = (finish - this.state.time) / 1000;
     this.setState({ elapsedTime: t });
     this.handleScore();
     if (this.state.level === 10) {
@@ -198,7 +213,7 @@ class Crosswords extends Component {
             Do you want to skip this level?
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.confirmNextLevel}>
+            <Button color="primary" onClick={this.confirmSkipLevel}>
               Confirm
             </Button>
             <Button color="secondary" onClick={this.toggleWarning}>
@@ -223,7 +238,7 @@ class Crosswords extends Component {
           </ModalBody>
 
           <ModalFooter>
-            <Button color="primary" onClick={this.confirmNextLevel}>
+            <Button color="primary" onClick={this.confirmFinishLevel}>
               Confirm
             </Button>
             <Button color="secondary" onClick={this.toggleWarningFinish}>
