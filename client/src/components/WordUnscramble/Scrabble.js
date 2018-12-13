@@ -50,6 +50,7 @@ class Scrabble extends Component {
     this.resetTiles = this.resetTiles.bind(this);
     this.toggleInfo = this.toggleInfo.bind(this);
     this.skipLevel = this.skipLevel.bind(this);
+    this.confirmToNextLevel = this.confirmToNextLevel.bind(this);
     this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
     this.showHints = this.showHints.bind(this);
   }
@@ -78,32 +79,38 @@ class Scrabble extends Component {
   componentDidMount() {
     console.log("mounting");
     //axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    //axios.post("/api/puzzle/getScrabble").then(response => 
-      //{console.log("r",response.data.level);
-      //this.setState({
-       // level: response.data.level+1,
+    //axios.post("/api/puzzle/getScrabble").then(response =>
+    //{console.log("r",response.data.level);
+    //this.setState({
+    // level: response.data.level+1,
     //}, () => {
-     // this.getMapFromServer(this.state.level);
+    // this.getMapFromServer(this.state.level);
     //});
-    
-  //  });
-    this.getMapFromServer(this.state.level)
-    
+
+    //  });
+    this.getMapFromServer(this.state.level);
   }
 
-  postScores(lvl,time,finished,score) {
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.post('/api/puzzle/updateScrabbleScore', {level:lvl,timeTaken:time,isFinished:finished, score:score})
-      .then(res => {
-       
-        console.log("vilo",res);
+  postScores(lvl, time, finished, score) {
+    axios.defaults.headers.common["Authorization"] = localStorage.getItem(
+      "jwtToken"
+    );
+    axios
+      .post("/api/puzzle/updateScrabbleScore", {
+        level: lvl,
+        timeTaken: time,
+        isFinished: finished,
+        score: score
       })
-      .catch((error) => {
+      .then(res => {
+        console.log("vilo", res);
+      })
+      .catch(error => {
         // if(error.response.status === 401) {
         //   this.props.history.push("/login");
         // }
-       // console.log("errorassad",error);
-       console.log(error)
+        // console.log("errorassad",error);
+        console.log(error);
       });
   }
   //get map from database
@@ -135,7 +142,28 @@ class Scrabble extends Component {
   //skip this level
   skipLevel() {
     this.toggleWarning();
-    this.postScores(this.state.level,"0",false,0);
+    this.postScores(this.state.level, "0", false, 0);
+    this.state.foundWords.length = 0;
+    this.setState(
+      {
+        //gameIndex: this.state.gameIndex + 1,
+        level: this.state.level + 1,
+        foundWords: [],
+        time: new Date().getTime(),
+        elapsedTime: 0,
+        answers: [],
+        score: 0,
+        hints: ""
+      },
+      () => {
+        console.log(this.state.level);
+        //this.getMapFromServer(this.state.gameIndex);
+        this.getMapFromServer(this.state.level);
+      }
+    );
+  }
+  confirmToNextLevel() {
+    this.toggleWarningFinish();
     this.state.foundWords.length = 0;
     this.setState(
       {
@@ -285,8 +313,11 @@ class Scrabble extends Component {
     ) {
       console.log("YUS");
       var finish = new Date().getTime();
-      var t = (finish -this.state.time)/1000;
-      this.postScores(this.state.level,t,true,this.state.score);
+      var t = (finish - this.state.time) / 1000;
+      this.setState({ elapsedTime: t });
+      this.postScores(this.state.level, t, true, this.state.score);
+      this.toggleWarningFinish();
+      /*
       this.state.foundWords.length = 0;
       this.setState(
         {
@@ -314,6 +345,7 @@ class Scrabble extends Component {
       //   this.getMapFromServer(this.state.puzzleIndex +1)
       // }.bind(this), 2500);
       // this.componentDidMount();
+      */
     } else console.log("NAH");
     //else alert('not a match');
   }
@@ -404,8 +436,11 @@ class Scrabble extends Component {
             Now you can go to the next level.
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleWarningFinish}>
+            <Button color="primary" onClick={this.confirmToNextLevel}>
               Confirm
+            </Button>
+            <Button color="secondary" onClick={this.toggleWarningFinish}>
+              Cancel
             </Button>
           </ModalFooter>
         </Modal>
