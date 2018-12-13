@@ -229,15 +229,15 @@ class Scrabble extends Component {
           var sc = this.state.score + 10;
           this.setState({
             score: sc,
-            fadeIn: !this.state.fadeIn,
+            fadeIn: true,
             foundWords: found
           });
 
           setTimeout(() => {
             this.setState({
-              fadeIn: !this.state.fadeIn
+              fadeIn: false
             });
-          }, 2000);
+          }, 1000);
           this.isGameDone();
         }
       }
