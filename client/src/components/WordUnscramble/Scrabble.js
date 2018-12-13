@@ -40,7 +40,8 @@ class Scrabble extends Component {
       fadeIn: false,
       info: true,
       warning: false,
-      warningFinish: false
+      warningFinish: false,
+      hints: ""
     };
     this.toggleWarning = this.toggleWarning.bind(this);
     this.updateDroppedTilePosition = this.updateDroppedTilePosition.bind(this);
@@ -48,8 +49,30 @@ class Scrabble extends Component {
     this.toggleInfo = this.toggleInfo.bind(this);
     this.skipLevel = this.skipLevel.bind(this);
     this.toggleWarningFinish = this.toggleWarningFinish.bind(this);
+    this.showHints = this.showHints.bind(this);
   }
+  showHints() {
+    let temp = this.state.answers;
+    let leftWords = JSON.parse(JSON.stringify(temp));
 
+    let found = this.state.foundWords;
+
+    for (let item of found) {
+      let index = leftWords.indexOf(item);
+      console.log(index);
+      if (index > -1) {
+        leftWords.splice(index, 1);
+      }
+    }
+    console.log(leftWords);
+    let answer = leftWords[0];
+    let index = 1;
+    let hint = answer.substr(0, index) + "_" + answer.substr(index + 1);
+    //push to hints
+    this.setState({
+      hints: hint
+    });
+  }
   componentDidMount() {
     console.log("mounting");
     this.getMapFromServer(this.state.level);
@@ -83,13 +106,19 @@ class Scrabble extends Component {
   //skip this level
   skipLevel() {
     this.toggleWarning();
+    this.state.foundWords.length = 0;
     this.setState(
       {
+        //gameIndex: this.state.gameIndex + 1,
         level: this.state.level + 1,
-        score: 0
+        foundWords: [],
+        answers: [],
+        score: 0,
+        hints: ""
       },
       () => {
         console.log(this.state.level);
+        //this.getMapFromServer(this.state.gameIndex);
         this.getMapFromServer(this.state.level);
       }
     );
@@ -234,7 +263,8 @@ class Scrabble extends Component {
           //foundWords:f,
           tiles: [],
           score: 0,
-          fadeIn: false
+          fadeIn: false,
+          hints: ""
         },
         () => {
           console.log(this.state.level);
@@ -256,7 +286,17 @@ class Scrabble extends Component {
     return (
       <div>
         <h1>LEVEL {this.state.level}</h1>
-        <h4> {this.state.answers.length} WORD COMBINATIONS</h4>
+        <div>
+          <h4> {this.state.answers.length} WORD COMBINATIONS</h4>
+          <h4>
+            FoundWords:
+            {this.state.foundWords.length
+              ? this.state.foundWords.map(itemArray => (
+                  <span> {itemArray} </span>
+                ))
+              : " - "}
+          </h4>
+        </div>
         <h4>Score: {this.state.score}</h4>
         <button
           type="button"
@@ -264,7 +304,15 @@ class Scrabble extends Component {
           onClick={this.toggleWarning}
         >
           Skip level
+        </button>{" "}
+        <button
+          type="button"
+          className={"btn btn-primary"}
+          onClick={this.showHints}
+        >
+          Hints
         </button>
+        <h5>{this.state.hints}</h5>
         <Fade in={this.state.fadeIn} tag="h5" className="mt-3">
           <Alert color="success">Correct!</Alert>
         </Fade>
@@ -278,7 +326,6 @@ class Scrabble extends Component {
             </div>
           </div>
         </div>
-
         <Modal
           isOpen={this.state.info}
           toggle={this.toggleInfo}
@@ -327,7 +374,6 @@ class Scrabble extends Component {
             </Button>
           </ModalFooter>
         </Modal>
-
         {/*Skip to next level*/}
         <Modal
           isOpen={this.state.warning}
