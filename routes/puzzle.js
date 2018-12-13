@@ -46,6 +46,28 @@ router.post(
     }
   }
 );
+
+router.post(
+  "/getScrabble",
+  passport.authenticate("jwt", { session: false }),
+  function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+      
+  
+        User.findOne(
+          { username: req.user.username },
+          function(error, obj) {
+            if (error) {
+              console.log(error);
+            } else {
+              res.json(obj.scrabbleInfo);
+            }
+          }
+        );
+    }
+  }
+);
 router.post(
   "/updateCrosswordScore",
   passport.authenticate("jwt", { session: false }),

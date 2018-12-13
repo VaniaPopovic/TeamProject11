@@ -77,7 +77,18 @@ class Scrabble extends Component {
   }
   componentDidMount() {
     console.log("mounting");
-    this.getMapFromServer(this.state.level);
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.post("/api/puzzle/getScrabble").then(response => 
+      {console.log("r",response.data.level);
+      this.setState({
+        level: response.data.level+1,
+    }, () => {
+      this.getMapFromServer(this.state.level);
+    });
+    
+    });
+  //  this.getMapFromServer(this.state.level)
+    
   }
 
   postScores(lvl,time,finished,score) {
