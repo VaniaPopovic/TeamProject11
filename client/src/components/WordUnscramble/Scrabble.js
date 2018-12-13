@@ -37,6 +37,8 @@ class Scrabble extends Component {
       score: 0,
       answers: [],
       foundWords: [],
+      time: new Date().getTime(),
+      elapsedTime: 0,
       fadeIn: false,
       info: true,
       warning: false,
@@ -122,12 +124,15 @@ class Scrabble extends Component {
   //skip this level
   skipLevel() {
     this.toggleWarning();
+    this.postScores(this.state.level,"0",false,0);
     this.state.foundWords.length = 0;
     this.setState(
       {
         //gameIndex: this.state.gameIndex + 1,
         level: this.state.level + 1,
         foundWords: [],
+        time: new Date().getTime(),
+        elapsedTime: 0,
         answers: [],
         score: 0,
         hints: ""
@@ -268,8 +273,9 @@ class Scrabble extends Component {
       this.state.foundWords.sort().join(",")
     ) {
       console.log("YUS");
-      //var finish = new Date().getTime();
-      //var t = finish -this.state.time;
+      var finish = new Date().getTime();
+      var t = (finish -this.state.time)/1000;
+      this.postScores(this.state.level,t,true,this.state.score);
       this.state.foundWords.length = 0;
       this.setState(
         {
@@ -277,6 +283,8 @@ class Scrabble extends Component {
           level: this.state.level + 1,
           answers: [],
           //foundWords:f,
+          elapsedTime:0,
+          time: new Date().getTime(),
           tiles: [],
           score: 0,
           fadeIn: false,
