@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require("mongoose");
 var Puzzle = require("../models/Puzzle.js");
 var passport = require("passport");
-var User = require("../models/user");
+var User = require("../models/User");
 require("../config/passport")(passport);
 
 /* GET ALL BOOKS */
