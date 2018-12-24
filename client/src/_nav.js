@@ -42,5 +42,11 @@ export default {
       icon: 'icon-game-controller',
       attributes: { },
     },
+    {
+      name: 'Generator',
+      url: '/generator',
+      icon: 'icon-game-controller',
+      attributes: { },
+    },
   ],
 };
