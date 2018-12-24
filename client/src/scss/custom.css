@@ -1,8 +1,13 @@
+
+@font-face {
+  font-family: 'MyFont';
+  src: local('MyFont'), url(font.otf) format('opentype');
+}
 #matrix button {
   height: 50px;
   width: 50px;
   border: none;
-  font-family: helvetica;
+  font-family: MyFont;
   font-weight: bold;
 }
 .square.is-revealed {

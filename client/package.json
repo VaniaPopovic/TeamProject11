@@ -11,10 +11,12 @@
     "@material-ui/core": "^3.6.0",
     "axios": "^0.18.0",
     "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.3",
     "classnames": "^2.2.6",
     "core-js": "^2.5.7",
+    "customize-cra": "^0.2.7",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "flag-icon-css": "^3.2.1",
@@ -24,6 +26,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-app-polyfill": "^0.1.3",
+    "react-app-rewired": "^1.6.2",
     "react-chartjs-2": "^2.7.2",
     "react-dnd": "^7.0.2",
     "react-dnd-html5-backend": "^7.0.2",
@@ -32,18 +35,14 @@
     "react-loadable": "^5.5.0",
     "react-router-config": "^4.4.0-beta.6",
     "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.1",
+    "react-table": "^6.8.6",
     "react-test-renderer": "^16.6.3",
     "react-time-tracker": "^1.0.0",
     "reactstrap": "^6.5.0",
-    "simple-line-icons": "^2.4.1",
-	 "babel-plugin-transform-decorators-legacy": "^1.3.5",
-    "customize-cra": "^0.2.7",
-    "react-app-rewired": "^1.6.2",
-    "react-scripts": "^2.1.1"
+    "simple-line-icons": "^2.4.1"
   },
-  "devDependencies": {
-   
-  },
+  "devDependencies": {},
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
@@ -59,5 +58,13 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/*index.js",
+      "!src/serviceWorker.js",
+      "!src/polyfill.js"
+    ]
+  }
 }

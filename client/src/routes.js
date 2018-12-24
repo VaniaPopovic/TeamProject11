@@ -16,6 +16,8 @@ const PuzzleGeneratorPage = React.lazy(() => import("./views/PuzzleGenerator"));
 const Users = React.lazy(() => import("./views/Users/Users"));
 const User = React.lazy(() => import("./views/Users/User"));
 
+const Scores = React.lazy(() => import("./views/Scores/Scores"));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: "/home", exact: true, name: "Home", component: DefaultLayout },
@@ -24,6 +26,7 @@ const routes = [
   { path: "/scrabble", name: "ScrabblePage", component: ScrabblePage },
   { path: "/generator", name: "PuzzleGeneratorPage", component: PuzzleGeneratorPage },
   { path: "/users", exact: true, name: "Users", component: Users },
+  { path: "/scores", exact: true, name: "Scores", component: Scores },
   { path: "/users/:id", exact: true, name: "User Details", component: User }
 ];
 

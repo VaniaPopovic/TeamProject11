@@ -59,9 +59,14 @@ router.post(
           { username: req.user.username },
           function(error, obj) {
             if (error) {
+              
               console.log(error);
             } else {
-              res.json(obj.scrabbleInfo);
+              var resp = {};
+              resp.scrabbleInfo = obj.scrabbleInfo;
+              resp.wordFindInfo = obj.wordFindInfo;
+              resp.crossWordInfo = obj.crossWordInfo;
+              res.json(resp);
             }
           }
         );
@@ -132,8 +137,8 @@ router.post("/", passport.authenticate("jwt", { session: false }), function(
 ) {
   var token = getToken(req.headers);
   if (token) {
-    console.log(token);
-    console.log(req.user);
+    //console.log(token);
+    //console.log(req.user);
     res.json({ username: req.user.username });
   } else {
     return res.status(403).send({ success: false, msg: "Unauthorized." });
