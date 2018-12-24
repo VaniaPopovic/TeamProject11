@@ -36,5 +36,11 @@ export default {
       icon: 'icon-game-controller',
       attributes: { },
     },
+    {
+      name: 'Scores',
+      url: '/scores',
+      icon: 'icon-game-controller',
+      attributes: { },
+    },
   ],
 };
