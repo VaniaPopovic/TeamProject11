@@ -63,7 +63,9 @@ class PuzzleGenerator extends Component {
               <CardHeader>PUZZLE GENERATOR</CardHeader>
               <CardBody>
                 <div>
-                  <h1>Anywhere in your app!</h1>
+                  <h3>This is here for demonstration purposes</h3>
+                  <p>Ideally we wouldnt wont to expose this API to the Users but for the sake of demonstration it was added here.</p>
+                  <p><b>SIZE is a number, difficulty is three options "EASY", "NORMAL", "HARD" and Answers Comma seperated values without spaces</b></p>
                   <Formik
                     initialValues={{ level: "", answers: "", difficulty: "", size:"", puzzleIndex:"" }}
                     onSubmit={(values, { setSubmitting }) => {
